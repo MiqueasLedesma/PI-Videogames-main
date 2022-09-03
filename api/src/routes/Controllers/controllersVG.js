@@ -1,6 +1,6 @@
 const { default: axios } = require('axios');
 // const { response } = require("express");
-const { YOUR_API_KEY, genre, Videogame } = require('../../db');
+const { YOUR_API_KEY, Genre, Videogame } = require('../../db');
 
 const getVideogames = async () => {
     let showVideogames = [];
@@ -48,7 +48,7 @@ const getVideogameFromDB = async (name) => {
     let dbGames = Videogame.findAll({
         where: {
             name: { [Op.iLike]: '%' + name + '%' }
-        }, include: genre
+        }, include: Genre
     });
     console.log(name + ' Traido desde DB');
     return dbGames.slice(0, 15);

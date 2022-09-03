@@ -1,16 +1,37 @@
 const { default: axios } = require('axios');
 const { Router } = require('express');
 const router = Router();
-const { YOUR_API_KEY } = require('../db');
+const { YOUR_API_KEY, Videogame, Genre } = require('../db');
+
 
 router.get('/:idvg', async (req, res) => {
     let id = req.params.idvg;
-    try {
-        await axios.get(`https://api.rawg.io/api/games/${id}?key=${YOUR_API_KEY}`)
+    if (id.length < 7) {
+        try {
+            await axios.get(`https://api.rawg.io/api/games/${id}?key=${YOUR_API_KEY}`)
+                .then(r => {
+                    let info;
+                    info = r.data
+                    let response = {
+                        name: info.name,
+                        image: info.background_image,
+                        description: info.description,
+                        release: info.released,
+                        rating: info.rating,
+                        platforms: info.platforms.map(ch => ch.platform.name),
+                        genres: info.genres.map(ch => ch.name)
+                    };
+                    return res.json(response);
+                });
+        } catch (error) {
+            console.log(error);
+            res.send(error)
+        };
+    } else {
+        await Videogame.findByPk(id, { include: Genre })
             .then(r => {
-                let info;
-                info = r.data
-                let response = {
+                let info = r.dataValues();
+                return {
                     name: info.name,
                     image: info.background_image,
                     description: info.description,
@@ -19,12 +40,8 @@ router.get('/:idvg', async (req, res) => {
                     platforms: info.platforms.map(ch => ch.platform.name),
                     genres: info.genres.map(ch => ch.name)
                 };
-                return res.json(response);
-            })
-    } catch (error) {
-        console.log(error);
-        res.send(error)
-    }
-})
+            });
+    };
+});
 
 module.exports = router;
