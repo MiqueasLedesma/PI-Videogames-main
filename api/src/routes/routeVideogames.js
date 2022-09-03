@@ -1,10 +1,10 @@
-const { default: axios } = require('axios');
-const { response } = require('express');
+// const { default: axios } = require('axios');
+// const { response } = require('express');
 let express = require('express');
-const { YOUR_API_KEY, Genre, Videogame, videogameGenre } = require('../db');
-const Genres = require('../models/Genres');
-const { getVideogames, getVideogameQuery, getVideogameFromDB } = require('./Controllers/controllersVG');
-const { sequelize } = require('sequelize');
+const { Genre, Videogame } = require('../db');
+// const Genres = require('../models/Genres');
+const { getVideogames, getVideogameQuery } = require('./Controllers/controllersVG');
+// const { sequelize } = require('sequelize');
 let router = express.Router();
 
 router.get('/', async (req, res) => {
@@ -12,9 +12,6 @@ router.get('/', async (req, res) => {
         let nombre = req.query.name;
         try {
             let response = await getVideogameQuery(nombre);
-            if (response.length === 0) {
-                response = getVideogameFromDB(nombre);
-            }
             return res.json(response)
         } catch (error) {
             console.log(error);

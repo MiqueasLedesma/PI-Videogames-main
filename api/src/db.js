@@ -1,5 +1,5 @@
 require('dotenv').config();
-const axios = require('axios');
+const  axios  = require('axios');
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
@@ -64,5 +64,5 @@ injectInfo();
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize,
-  YOUR_API_KEY : YOUR_API_KEY,     // para importart la conexión { conn } = require('./db.js');
+  YOUR_API_KEY: YOUR_API_KEY     // para importart la conexión { conn } = require('./db.js');
 };

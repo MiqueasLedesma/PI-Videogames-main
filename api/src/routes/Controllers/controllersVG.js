@@ -41,18 +41,38 @@ const getVideogameQuery = async (name) => {
                 };
             });
         });
-    return responseVG.slice(0, 15);
+    let gamesDB = await Videogame.findAll({
+        where: {
+            name: '%' + name + '%'
+        }, include: Genre,
+        raw: true
+    });
+    console.log(gamesDB);
+    let responseDB = gamesDB.map(el => {
+        return {
+            id: el.id,
+            name: el.name,
+            description: el.description,
+            image: el.image,
+            release: el.release,
+            rating: el.rating,
+            platforms: el.platforms.map(ch => ch),
+            genres: el.genres.map(ch => ch.name),
+            createdInDB: el.createdInDB
+        }
+    })
+    return responseVG.concat(responseDB);
 };
 
-const getVideogameFromDB = async (name) => {
-    let dbGames = Videogame.findAll({
-        where: {
-            name: { [Op.iLike]: '%' + name + '%' }
-        }, include: Genre
-    });
-    console.log(name + ' Traido desde DB');
-    return dbGames.slice(0, 15);
-};
+// const getVideogameFromDB = async (name) => {
+//     let dbGames = Videogame.findAll({
+//         where: {
+//             name: { [Op.iLike]: '%' + name + '%' }
+//         }, include: Genre
+//     });
+//     console.log(name + ' Traido desde DB');
+//     return dbGames.slice(0, 15);
+// };
 
 // const getGameByID = async (id) => {
 //     await axios.get(`https://api.rawg.io/api/games/${id}?key=${YOUR_API_KEY}`)
@@ -74,4 +94,4 @@ const getVideogameFromDB = async (name) => {
 //         });
 // };
 
-module.exports = { getVideogames, getVideogameQuery, getVideogameFromDB /* getGameByID */ };
+module.exports = { getVideogames, getVideogameQuery /* getGameByID */ };
