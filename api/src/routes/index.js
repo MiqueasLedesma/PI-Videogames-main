@@ -4,7 +4,7 @@ const { Router } = require('express');
 
 const routeVideogames = require('./routeVideogames');
 const routeGenres = require('./routeGenres');
-
+const routeVideogame = require('./routeVideogame');
 
 const router = Router();
 
@@ -13,6 +13,6 @@ const router = Router();
 
 router.use('/videogames', routeVideogames);
 router.use('/genres', routeGenres);
-// router.use('/videogame', routeVideogame);
+router.use('/videogame/', routeVideogame);
 
 module.exports = router;

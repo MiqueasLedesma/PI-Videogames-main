@@ -1,4 +1,4 @@
-const { default: axios } = require("axios");
+const { default: axios } = require('axios');
 // const { response } = require("express");
 const { YOUR_API_KEY, genre, Videogame } = require('../../db');
 
@@ -54,7 +54,24 @@ const getVideogameFromDB = async (name) => {
     return dbGames.slice(0, 15);
 };
 
+// const getGameByID = async (id) => {
+//     await axios.get(`https://api.rawg.io/api/games/${id}?key=${YOUR_API_KEY}`)
+//         .then(r => {
+//             console.log(id);
+//             let info;
+//             info = r.data
+//             let response = {
+//                 name: info.name,
+//                 image: info.background_image,
+//                 description: info.description,
+//                 release: info.released,
+//                 rating: info.rating,
+//                 platforms: info.platforms.map(ch => ch.platform.name),
+//                 genres: info.genres.map(ch => ch.name)
+//             };
+//             console.log(response);
+//             return response;
+//         });
+// };
 
-
-
-module.exports = { getVideogames, getVideogameQuery, getVideogameFromDB };
+module.exports = { getVideogames, getVideogameQuery, getVideogameFromDB /* getGameByID */ };
