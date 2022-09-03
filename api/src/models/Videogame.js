@@ -18,15 +18,17 @@ module.exports = (sequelize) => {
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    reldate: {
+    released: {
       type: DataTypes.STRING,
     },
     rating: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.FLOAT,
     },
     platform: {
-      type: DataTypes.STRING,
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false
     }
+  }, {
+    timestamps: false
   });
 };
