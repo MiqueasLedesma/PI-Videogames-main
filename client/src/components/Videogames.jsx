@@ -5,6 +5,8 @@ import { Card } from './Card';
 const MyContainer = styled.div`
 display: grid;
 grid-template-columns: auto auto auto auto;
+background-color: #ddd;
+width: 100%;
 `;
 
 export const Videogames = (info) => {

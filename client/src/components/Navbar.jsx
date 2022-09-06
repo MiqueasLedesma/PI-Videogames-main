@@ -6,8 +6,8 @@ let RightLI = {
 };
 
 const MyDiv = styled.div`
-  position: fixed;
-  top: 0; 
+  /* position: fixed;
+  top: 0;  */
   width: 100%;
   color: black;
 `;
@@ -100,7 +100,8 @@ export const Navbar = () => {
   return (
     <MyDiv>
       <MyUl>
-        <MyLi><MyLink to={'/home'}>Videogames!</MyLink></MyLi>
+        <MyLi><MyLink to={'/Home'}>Home</MyLink></MyLi>
+        <MyLi><MyLink to={'/videogames'}>Videogames!</MyLink></MyLi>
         <MyLi><MyLink to={'/genres'}>Genres</MyLink></MyLi>
         <MyLi><MyLink to={'/creategame'}>CreateGame</MyLink></MyLi>
         <MyLi><MyLink to={'/about'}>About</MyLink></MyLi>
