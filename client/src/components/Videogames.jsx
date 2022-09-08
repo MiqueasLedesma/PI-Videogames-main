@@ -4,8 +4,8 @@ import { Card } from './Card';
 
 const MyContainer = styled.div`
 display: grid;
+margin-left: 60px;
 grid-template-columns: auto auto auto auto;
-background-color: #ddd;
 width: 100%;
 `;
 
@@ -15,6 +15,7 @@ export const Videogames = (info) => {
       {
         info?.info?.map(e => <Card
           key={e.id}
+          id={e.id}
           name={e.name}
           platforms={e.platforms}
           rating={e.rating}

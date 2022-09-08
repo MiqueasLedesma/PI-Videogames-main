@@ -1,15 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 let RightLI = {
   float: 'right'
 };
 
 const MyDiv = styled.div`
-  /* position: fixed;
-  top: 0;  */
+  position: fixed;
+  top: 0; 
   width: 100%;
   color: black;
+  background-color: black;
 `;
 
 const MyUl = styled.ul`
@@ -18,22 +19,24 @@ const MyUl = styled.ul`
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #333;
+  background-color: black;
 `;
 
 const MyLi = styled.li`
 float: left;
 `;
 
-const MyLink = styled(Link)`
+const MyLink = styled(NavLink)`
 background-color: black;
 display: block;
 color: white;
 text-align: center;
 padding: 14px 16px;
 text-decoration: none;
+transition: 0.4s;
 &:hover {
   background-color: #04AA6D;
+  padding: 14px 18px;
 };
 &:active {
   background-color: #04AA6D;
@@ -100,7 +103,7 @@ export const Navbar = () => {
   return (
     <MyDiv>
       <MyUl>
-        <MyLi><MyLink to={'/Home'}>Home</MyLink></MyLi>
+        <MyLi><MyLink to={'/'}>Home</MyLink></MyLi>
         <MyLi><MyLink to={'/videogames'}>Videogames!</MyLink></MyLi>
         <MyLi><MyLink to={'/genres'}>Genres</MyLink></MyLi>
         <MyLi><MyLink to={'/creategame'}>CreateGame</MyLink></MyLi>

@@ -18,9 +18,8 @@ const rootReducer = (state = initialState, action) => {
             }
             break;
         default:
-            return null;
+            return state;
     }
 };
-
 
 export default rootReducer;
