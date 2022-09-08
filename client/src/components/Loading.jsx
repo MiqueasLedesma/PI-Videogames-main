@@ -26,9 +26,9 @@ const MyDiv = styled.div`
 
 `;
 
-const MyH2 = styled.h2`
+// const MyH2 = styled.h2`
 
-`;
+// `;
 
 export const Loading = () => {
   return (

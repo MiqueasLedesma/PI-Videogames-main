@@ -6,20 +6,23 @@ let RightLI = {
 };
 
 const MyDiv = styled.div`
-  position: fixed;
-  top: 0; 
-  width: 100%;
-  color: black;
+  overflow: hidden;
   background-color: black;
+  height: 100%;
+  align-items: center;
+  /* position: fixed; */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%; /* Full width */
 `;
 
 const MyUl = styled.ul`
-  opacity: 1;
   list-style-type: none;
-  margin: 0;
-  padding: 0;
   overflow: hidden;
   background-color: black;
+  /* overflow: hidden; */
+  /* background-color: black; */
+  /* overflow: hidden; */
+  /* background-color: #333; */
 `;
 
 const MyLi = styled.li`
@@ -27,21 +30,23 @@ float: left;
 `;
 
 const MyLink = styled(NavLink)`
-background-color: black;
-display: block;
-color: white;
-text-align: center;
-padding: 14px 16px;
-text-decoration: none;
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  background-color: black;
+
 transition: 0.4s;
 &:hover {
   background-color: #04AA6D;
   padding: 14px 18px;
 };
-&:active {
+/* &:active {
   background-color: #04AA6D;
   color: black;
-}
+} */
 `;
 
 const MyInput = styled.input`
@@ -65,6 +70,7 @@ const MyInput = styled.input`
 `;
 
 const MyButton = styled.button`
+  margin-right: 20px;
   position: relative;
   background-color: #4DD8DA;
   border: none;
@@ -108,8 +114,8 @@ export const Navbar = () => {
         <MyLi><MyLink to={'/genres'}>Genres</MyLink></MyLi>
         <MyLi><MyLink to={'/creategame'}>CreateGame</MyLink></MyLi>
         <MyLi><MyLink to={'/about'}>About</MyLink></MyLi>
-        <MyLi style={RightLI}><MyInput type="text" placeholder="Search.." /></MyLi>
         <MyLi style={RightLI}><MyButton type="submit">Search</MyButton></MyLi>
+        <MyLi style={RightLI}><MyInput type="text" placeholder="Search.." /></MyLi>
       </MyUl>
     </MyDiv>
   )

@@ -5,7 +5,7 @@ const Myul = styled.ul`
    position: fixed;
    bottom: 0px;
    text-align: center;
-   margin-left: -230px;
+   margin-left: -165px;
    left: 50%;
 `;
 

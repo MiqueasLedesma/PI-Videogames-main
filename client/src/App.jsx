@@ -10,7 +10,7 @@ import { getVideogames } from './Redux/actions';
 import { useEffect, useState } from 'react';
 import { Pagination } from './components/Pagination';
 import styled from 'styled-components';
-import img from './imagenes/background.jpg'
+import img from './imagenes/7445.webp'
 
 
 const MyDiv = styled.div`
@@ -23,7 +23,7 @@ const MyDiv = styled.div`
 function App() {
   const [games, setGames] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [gamesPerPage] = useState(8);
+  const [gamesPerPage] = useState(12);
 
 
   if (games[0] === undefined) store.dispatch(getVideogames());
@@ -42,14 +42,15 @@ function App() {
 
   return (
     <MyDiv>
-      <br />
       <Navbar />
+      {/* <br />
       <br />
-      <br />
+      <br /> */}
       {/* <br /> */}
       <Route path="/videogames">
         {games[0] !== undefined ? <Videogames info={currentGames} /> : <Loading />}
         <Pagination gamesPerPage={gamesPerPage} totalGames={games.length} paginate={paginate} />
+        <div></div>
       </Route>
       <Switch>
         <Route exact path={'/genres'}>

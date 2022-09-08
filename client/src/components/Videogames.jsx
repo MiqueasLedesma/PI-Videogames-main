@@ -4,9 +4,9 @@ import { Card } from './Card';
 
 const MyContainer = styled.div`
 display: grid;
-margin-left: 60px;
-grid-template-columns: auto auto auto auto;
-width: 100%;
+grid-template-columns: auto auto auto auto auto auto;
+justify-content: center;
+margin-top: 20px;
 `;
 
 export const Videogames = (info) => {
