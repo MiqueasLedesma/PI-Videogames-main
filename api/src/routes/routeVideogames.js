@@ -9,9 +9,9 @@ let router = express.Router();
 
 router.get('/', async (req, res) => {
     if (req.query.name) {
-        let nombre = req.query.name;
+        // let nombre = req.query.name;
         try {
-            let response = await getVideogameQuery(nombre);
+            let response = await getVideogameQuery(req.query.name);
             return res.json(response)
         } catch (error) {
             console.log(error);

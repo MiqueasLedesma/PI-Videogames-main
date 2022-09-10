@@ -25,10 +25,12 @@ const getVideogames = async () => {
 };
 
 const getVideogameQuery = async (name) => {
-    console.log(name)
+    // console.log(name)
+    // console.log(name.split(' ').join('-'))
     let responseVG;
-    await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${YOUR_API_KEY}`)
+    await axios.get(`https://api.rawg.io/api/games?search=${name.split(' ').join('-')}&key=${YOUR_API_KEY}`)
         .then(r => {
+            console.log(r.data.results)
             responseVG = r.data.results.map(e => {
                 return {
                     id: e.id,
@@ -36,11 +38,12 @@ const getVideogameQuery = async (name) => {
                     image: e.background_image,
                     release: e.released,
                     rating: e.rating,
-                    platforms: e.platforms.map(ch => ch.platform.name),
+                    platforms: e.platforms,
                     genres: e.genres.map(ch => ch.name)
                 };
             });
         });
+    // console.log(responseVG)
     let gamesDB = await Videogame.findAll({
         where: {
             name: '%' + name + '%'
@@ -61,6 +64,7 @@ const getVideogameQuery = async (name) => {
             createdInDB: el.createdInDB
         }
     })
+
     return responseVG.concat(responseDB);
 };
 

@@ -18,8 +18,8 @@ router.get('/:idvg', async (req, res) => {
                         description: info.description,
                         release: info.released,
                         rating: info.rating,
-                        platforms: info.platforms.map(ch => ch.platform.name),
-                        genres: info.genres.map(ch => ch.name)
+                        platforms: info.platforms.map(ch => ch.platform.name).join(', '),
+                        genres: info.genres.map(ch => ch.name).join(', ')
                     };
                     return res.json(response);
                 });
