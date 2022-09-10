@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { getVideogameByID } from '../Redux/actions';
+import { useDispatch } from 'react-redux';
 
 const MyCard = styled.div`
   opacity: 0.7;
@@ -33,11 +35,23 @@ const MyH4 = styled.h4`
 background-color:#3a352f
 `;
 
+//LOGICA!
+//---------------------------------------------------------------------------------------------------------------------------------------------
+
+/* const hadnleClick = (e) => {
+  const dispatch = useDispatch();
+  e.preventDefault();
+  dispatch(getVideogameByID(id));
+}; */
+
 
 export const Card = ({ name, image, id }) => {
+
+  const dispatch = useDispatch()
+
   return (
     <Link to={'/videogameDetails'}>
-      <MyCard onClick={() => console.log(id)}>
+      <MyCard onClick={(e) => dispatch(getVideogameByID(id))}>
         <MyImg src={`${image}`} alt="Not image Found!" />
         <MyContainer>
           <MyH4>{`${name}`}</MyH4>

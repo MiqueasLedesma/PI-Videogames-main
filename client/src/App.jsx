@@ -12,6 +12,7 @@ import { Pagination } from './components/Pagination';
 import styled from 'styled-components';
 import img from './imagenes/7445.webp'
 import { Details } from './components/Details';
+import { useSelector } from 'react-redux';
 
 
 const MyDiv = styled.div`
@@ -26,8 +27,9 @@ const MyDiv = styled.div`
 
 function App() {
 
-  const [games, setGames] = useState([]);
+  let [games, setGames] = useState([]);
 
+  const reduxState = useSelector(state => state);
 
   if (games[0] === undefined) store.dispatch(getVideogames())
 
@@ -37,24 +39,24 @@ function App() {
 
 
   useEffect(() => store.subscribe(() => {
-
-    let queSeRenderiza = () => {
-      if (store.getState().searchResults) {
-        if (store.getState().videogameSearch.length === 0) {
+    const queSeRenderiza = () => {
+      if (reduxState.searchResults) {
+        if (reduxState.videogameSearch.length === 0) {
           alert('Videogame Not Found!');
-          return store.getState().videogames;
-        }
+          return reduxState.videogames;
+        };
         setCurrentPage(1);
-        return store.getState().videogameSearch;
-      }
-      else if (!store.getState().searchResults) return store.getState().videogames;
+        return reduxState.videogameSearch;
+      } else if (!reduxState.searchResults) return reduxState.videogames;
     };
 
     const getGames = queSeRenderiza();
 
     setGames(getGames);
+    console.log(getGames)
 
   }, [store]));
+
 
 
   const indexOfLastGame = currentPage * gamesPerPage;
@@ -63,7 +65,7 @@ function App() {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-
+  // { reduxState.Details[0] !== undefined ? <Details /> : <Loading /> }
 
   return (
     <MyDiv>
@@ -80,7 +82,7 @@ function App() {
           {games[0] !== undefined ? <Home /> : <Loading />}
         </Route>
         <Route exact path={'/videogameDetails'}>
-          <Details />
+          {!reduxState.videogameDetails[0] ? <Details /> : <Loading />}
         </Route>
       </Switch>
     </MyDiv>
