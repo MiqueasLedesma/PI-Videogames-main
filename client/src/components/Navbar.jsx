@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { getVideogamesByName, showSearchResults } from '../Redux/actions';
+//Estilos CSS
+//------------------------------------------------------------------------------------------------------------------------------------
+
 let RightLI = {
   float: 'right'
 };
@@ -8,26 +13,24 @@ let RightLI = {
 const MyDiv = styled.div`
   overflow: hidden;
   background-color: black;
-  height: 100%;
   align-items: center;
-  /* position: fixed; */
-  top: 0; /* Position the navbar at the top of the page */
-  width: 100%; /* Full width */
+  top: 0;
+  width: 100%; 
 `;
 
 const MyUl = styled.ul`
   list-style-type: none;
   overflow: hidden;
   background-color: black;
-  /* overflow: hidden; */
-  /* background-color: black; */
-  /* overflow: hidden; */
-  /* background-color: #333; */
 `;
 
 const MyLi = styled.li`
 float: left;
 `;
+
+// const MyLinkButton = styled(Link)`
+
+// `;
 
 const MyLink = styled(NavLink)`
   float: left;
@@ -70,21 +73,18 @@ const MyInput = styled.input`
 `;
 
 const MyButton = styled.button`
-  margin-right: 20px;
-  position: relative;
-  background-color: #4DD8DA;
-  border: none;
-  font-size: 16px;
-  color: #FFFFFF;
-  padding: 14px;
-  width: 80px;
-  text-align: center;
-  -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
-  text-decoration: none;
-  overflow: hidden;
-  cursor: pointer;
-  &:after {
+margin-right: 20px;
+position: relative;
+background-color: #4DD8DA;
+border: none;
+font-size: 16px;
+color: #FFFFFF;
+padding: 14px;
+width: 80px;
+text-align: center;
+text-decoration: none;
+overflow: hidden;
+&:after {
   content: "";
   background: black;
   display: block;
@@ -102,10 +102,32 @@ const MyButton = styled.button`
   opacity: 1;
   transition: 0s
 }
+ `;
 
-`;
+// Componente || logica
+//-------------------------------------------------------------------------------------------------------------------------------------------
+
 
 export const Navbar = () => {
+
+  const dispatch = useDispatch();
+  const [name, setName] = useState('');
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setName(e.target.value);
+
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(getVideogamesByName(name));
+    setName("");
+    dispatch(showSearchResults());
+  };
+
+
+
   return (
     <MyDiv>
       <MyUl>
@@ -114,9 +136,10 @@ export const Navbar = () => {
         <MyLi><MyLink to={'/genres'}>Genres</MyLink></MyLi>
         <MyLi><MyLink to={'/creategame'}>CreateGame</MyLink></MyLi>
         <MyLi><MyLink to={'/about'}>About</MyLink></MyLi>
-        <MyLi style={RightLI}><MyButton type="submit">Search</MyButton></MyLi>
-        <MyLi style={RightLI}><MyInput type="text" placeholder="Search.." /></MyLi>
+        <MyLi style={RightLI}><MyButton onClick={(e) => handleSubmit(e)}>Search</MyButton></MyLi>
+        <MyLi style={RightLI}><MyInput type="text" placeholder="Search.." onChange={(e) => handleChange(e)} /></MyLi>
       </MyUl>
     </MyDiv>
   )
 }
+

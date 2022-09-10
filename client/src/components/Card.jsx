@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const MyCard = styled.div`
   opacity: 0.7;
@@ -18,7 +19,7 @@ const MyCard = styled.div`
 `;
 
 const MyContainer = styled.div`
-  padding: 2px 16px;
+  padding: 2px 8px;
   color:white;
   background-color: #3a352f;
 `;
@@ -32,23 +33,17 @@ const MyH4 = styled.h4`
 background-color:#3a352f
 `;
 
-const MyP = styled.p`
-background-color:#3a352f
-`;
 
-const MyStrong = styled.strong`
-background-color:#3a352f
-`;
-
-export const Card = ({ name, rating, image, id }) => {
+export const Card = ({ name, image, id }) => {
   return (
-    <MyCard onClick={() => console.log(id)}>
-      <MyImg src={`${image}`} alt="Error!" />
-      <MyContainer>
-        <MyH4>{`${name}`}</MyH4>
-        <MyP><MyStrong>Rating:</MyStrong> {`${rating}`}</MyP>
-        {/* <p><strong>Plataformas:</strong> {`${platforms}`}</p> */}
-      </MyContainer>
-    </MyCard>
+    <Link to={'/videogameDetails'}>
+      <MyCard onClick={() => console.log(id)}>
+        <MyImg src={`${image}`} alt="Not image Found!" />
+        <MyContainer>
+          <MyH4>{`${name}`}</MyH4>
+        </MyContainer>
+      </MyCard>
+    </Link>
   )
 }
+

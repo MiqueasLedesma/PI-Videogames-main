@@ -1,12 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Card } from './Card';
+import img from '../imagenes/7445.webp'
 
 const MyContainer = styled.div`
+height: fit-content;
 display: grid;
 grid-template-columns: auto auto auto auto auto auto;
 justify-content: center;
-margin-top: 20px;
+background-image: url(${img});
+background-size: cover;
 `;
 
 export const Videogames = (info) => {
