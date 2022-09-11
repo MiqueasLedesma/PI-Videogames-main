@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { /* Link */ NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { getVideogamesByName, showSearchResults, sortGamesLowMax } from '../Redux/actions';
+import { getVideogamesByName, showSearchResults, sortGamesLowMax, sortGamesMaxLow } from '../Redux/actions';
 //Estilos CSS
 //------------------------------------------------------------------------------------------------------------------------------------
 
@@ -113,7 +113,7 @@ export const Navbar = () => {
 
   const dispatch = useDispatch();
   const [name, setName] = useState('');
-  
+
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -128,10 +128,18 @@ export const Navbar = () => {
     dispatch(showSearchResults());
   };
 
-  const handleSort =  (e) => {
+  const handleSortA = (e) => {
     e.preventDefault();
     dispatch(sortGamesLowMax());
+    setName('');
   }
+
+  const handleSortB = (e) => {
+    e.preventDefault();
+    dispatch(sortGamesMaxLow());
+    setName('');
+  }
+
 
   return (
     <MyDiv>
@@ -140,8 +148,8 @@ export const Navbar = () => {
         <MyLi><MyLink to={'/videogames'}>Videogames!</MyLink></MyLi>
         <MyLi><MyLink to={'/genres'}>Genres</MyLink></MyLi>
         <MyLi><MyLink to={'/creategame'}>CreateGame</MyLink></MyLi>
-        <MyLi><MyLink to={'/about'}>About</MyLink></MyLi>
-        <MyLi><MyButton onClick={(e) => handleSort(e)}>Sort</MyButton></MyLi>
+        <MyLi><MyButton onClick={(e) => handleSortA(e)}>A-Z</MyButton></MyLi>
+        <MyLi><MyButton onClick={(e) => handleSortB(e)}>Z-A</MyButton></MyLi>
         <MyLi style={RightLI}><MyButton onClick={(e) => handleSubmit(e)}>Search</MyButton></MyLi>
         <MyLi style={RightLI}><MyInput type="text" placeholder="Search.." onChange={(e) => handleChange(e)} /></MyLi>
       </MyUl>

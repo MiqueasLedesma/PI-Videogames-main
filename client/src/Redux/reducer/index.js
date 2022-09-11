@@ -1,4 +1,4 @@
-import { GET_VIDEOGAMES, GET_VIDEOGAMES_BY_NAME, GET_VIDEOGAME_BY_ID, SHOW_SEARCH_RESULTS, SORT_LOW_MAX } from '../actions/index'
+import { GET_VIDEOGAMES, GET_VIDEOGAMES_BY_NAME, GET_VIDEOGAME_BY_ID, SHOW_SEARCH_RESULTS, SORT_LOW_MAX, SORT_MAX_LOW } from '../actions/index'
 
 const initialState = {
     videogames: [],
@@ -41,6 +41,13 @@ const rootReducer = (state = initialState, action) => {
                 }
             } break;
         case SORT_LOW_MAX:
+            if (action.payload) {
+                return {
+                    ...state,
+                    sortBy: action.payload
+                }
+            } break;
+        case SORT_MAX_LOW:
             if (action.payload) {
                 return {
                     ...state,

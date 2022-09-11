@@ -27,7 +27,7 @@ const MyDiv = styled.div`
 
 function App() {
 
-  let [games, setGames] = useState([]);
+  const [games, setGames] = useState([]);
 
   const reduxState = useSelector(state => state);
 
@@ -35,8 +35,6 @@ function App() {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [gamesPerPage] = useState(15);
-
-
 
   useEffect(() => store.subscribe(() => {
     const queSeRenderiza = () => {
@@ -50,12 +48,28 @@ function App() {
       } else if (!reduxState.searchResults) return reduxState.videogames;
     };
 
-    const getGames = queSeRenderiza();
+    const getGames = !reduxState.sortBy ?
+      queSeRenderiza() : reduxState.sortBy === 'ASCENDENT' ? queSeRenderiza().sort(function (a, b) {
+        if (a.name > b.name) {
+          return 1;
+        };
+        if (a.name < b.name) {
+          return -1;
+        };
+        return 0;
+      }) : reduxState.sortBy === 'DESENDENT' ? queSeRenderiza().sort(function (a, b) {
+        if (a.name > b.name) {
+          return 1;
+        };
+        if (a.name < b.name) {
+          return -1;
+        };
+        return 0;
+      }).reverse() : null;
 
     setGames(getGames);
-    console.log(getGames)
 
-  }, [store]));
+  }, [store,games]));
 
 
 
@@ -64,8 +78,6 @@ function App() {
   const currentGames = games.slice(indexOfFirstGame, indexOfLastGame);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  // { reduxState.Details[0] !== undefined ? <Details /> : <Loading /> }
 
   return (
     <MyDiv>

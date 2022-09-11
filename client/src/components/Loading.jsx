@@ -34,7 +34,6 @@ export const Loading = () => {
   return (
     <>
       <MyDiv></MyDiv>
-      {/* <MyH2><strong>LOADING PLEASE AWAIT...</strong></MyH2> */}
     </>
   )
 }
