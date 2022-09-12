@@ -37,21 +37,26 @@ background-color:#3a352f
 
 //LOGICA!
 //---------------------------------------------------------------------------------------------------------------------------------------------
-
-/* const hadnleClick = (e) => {
+/* 
+const hadnleClick = (e) => {
+  console.log('esto esta re loco);
   const dispatch = useDispatch();
   e.preventDefault();
   dispatch(getVideogameByID(id));
-}; */
-
+};
+ */
 
 export const Card = ({ name, image, id }) => {
 
   const dispatch = useDispatch()
 
+  const handleClick = (id) => {
+    dispatch(getVideogameByID(id))
+  }
+
   return (
-    <Link to={'/videogameDetails'}>
-      <MyCard onClick={(e) => dispatch(getVideogameByID(id))}>
+    <Link to={'/videogameDetails'} onClick={(e) => handleClick(id)}>
+      <MyCard>
         <MyImg src={`${image}`} alt="Not image Found!" />
         <MyContainer>
           <MyH4>{`${name}`}</MyH4>

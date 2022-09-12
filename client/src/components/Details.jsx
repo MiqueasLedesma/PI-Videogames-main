@@ -22,6 +22,14 @@ resize: none;
 height: 40%;
 width: 60%;
 margin-bottom: 10px;
+/* width: 100%; */
+  /* height: 150px; */
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
 `;
 
 const imgStyle = {

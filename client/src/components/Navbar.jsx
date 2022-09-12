@@ -131,13 +131,11 @@ export const Navbar = () => {
   const handleSortA = (e) => {
     e.preventDefault();
     dispatch(sortGamesLowMax());
-    setName('');
   }
 
   const handleSortB = (e) => {
     e.preventDefault();
     dispatch(sortGamesMaxLow());
-    setName('');
   }
 
 

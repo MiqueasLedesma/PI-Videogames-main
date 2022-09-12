@@ -5,7 +5,7 @@ import { Loading } from './components/Loading';
 import { Route, Switch } from 'react-router-dom';
 import { Home } from './components/Home';
 import { Genres } from './components/Genres';
-import store from './Redux/store';
+// import store from './Redux/store';
 import { getVideogames } from './Redux/actions';
 import { useEffect, useState } from 'react';
 import { Pagination } from './components/Pagination';
@@ -13,6 +13,8 @@ import styled from 'styled-components';
 import img from './imagenes/7445.webp'
 import { Details } from './components/Details';
 import { useSelector } from 'react-redux';
+import { ControlledForm } from './components/ControlledForm';
+import { useDispatch } from 'react-redux';
 
 
 const MyDiv = styled.div`
@@ -26,17 +28,18 @@ const MyDiv = styled.div`
 
 
 function App() {
-
+  const dispatch = useDispatch();
+  const reduxState = useSelector(state => state);
   const [games, setGames] = useState([]);
 
-  const reduxState = useSelector(state => state);
 
-  if (games[0] === undefined) store.dispatch(getVideogames())
+  if (reduxState.videogames[0] === undefined) dispatch(getVideogames())
 
   const [currentPage, setCurrentPage] = useState(1);
   const [gamesPerPage] = useState(15);
 
-  useEffect(() => store.subscribe(() => {
+  useEffect(() => {
+
     const queSeRenderiza = () => {
       if (reduxState.searchResults) {
         if (reduxState.videogameSearch.length === 0) {
@@ -69,7 +72,7 @@ function App() {
 
     setGames(getGames);
 
-  }, [store,games]));
+  },[reduxState, games]);
 
 
 
@@ -95,6 +98,9 @@ function App() {
         </Route>
         <Route exact path={'/videogameDetails'}>
           {!reduxState.videogameDetails[0] ? <Details /> : <Loading />}
+        </Route>
+        <Route exact path={'/creategame'} >
+          <ControlledForm />
         </Route>
       </Switch>
     </MyDiv>
