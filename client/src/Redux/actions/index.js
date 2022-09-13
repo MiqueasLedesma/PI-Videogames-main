@@ -4,8 +4,10 @@ export const GET_VIDEOGAMES = 'GET_VIDEOGAMES';
 export const GET_VIDEOGAMES_BY_NAME = 'GET_VIDEOGAMES_BY_NAME';
 export const SHOW_SEARCH_RESULTS = 'SHOW_SEARCH_RESULTS';
 export const GET_VIDEOGAME_BY_ID = 'GET_VIDEOGAME_BY_ID';
+export const GET_GENRES = 'GET_GENRES';
 export const SORT_LOW_MAX = 'SORT_LOW_MAX';
 export const SORT_MAX_LOW = 'SORT_MAX_LOW';
+export const GENRE_FILTER = 'GENRE_FILTER';
 
 export const getVideogames = () => async (dispatch) => {
     return await axios.get('http://localhost:3001/videogames')
@@ -55,3 +57,19 @@ export const sortGamesMaxLow = () => async (dispatch) => {
     });
 };
 
+export const getGenres = () => async (dispatch) => {
+    return await axios.get(`http://localhost:3001/genres`)
+        .then(r => dispatch({
+            type: GET_GENRES,
+            payload: r.data
+        }))
+        .catch(e => console.log(e));
+};
+
+export const genresFilter = (e) => async (dispatch) => {
+    console.log(e);
+    return dispatch({
+        type: GENRE_FILTER,
+        payload: e
+    });
+};

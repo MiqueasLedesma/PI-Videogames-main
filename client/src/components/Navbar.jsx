@@ -146,8 +146,8 @@ export const Navbar = () => {
         <MyLi><MyLink to={'/videogames'}>Videogames!</MyLink></MyLi>
         <MyLi><MyLink to={'/genres'}>Genres</MyLink></MyLi>
         <MyLi><MyLink to={'/creategame'}>CreateGame</MyLink></MyLi>
-        <MyLi><MyButton onClick={(e) => handleSortA(e)}>A-Z</MyButton></MyLi>
-        <MyLi><MyButton onClick={(e) => handleSortB(e)}>Z-A</MyButton></MyLi>
+        <MyLi><button onClick={(e) => handleSortA(e)}>A-Z</button></MyLi>
+        <MyLi><button onClick={(e) => handleSortB(e)}>Z-A</button></MyLi>
         <MyLi style={RightLI}><MyButton onClick={(e) => handleSubmit(e)}>Search</MyButton></MyLi>
         <MyLi style={RightLI}><MyInput type="text" placeholder="Search.." onChange={(e) => handleChange(e)} /></MyLi>
       </MyUl>

@@ -48,7 +48,7 @@ const hadnleClick = (e) => {
 
 export const Card = ({ name, image, id }) => {
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleClick = (id) => {
     dispatch(getVideogameByID(id))

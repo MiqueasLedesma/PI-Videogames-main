@@ -39,6 +39,7 @@ export const ControlledForm = () => {
 
     const [errors, setErrors] = useState({});
 
+    
 
     const validate = (input) => {
         let errors = {};
@@ -58,7 +59,7 @@ export const ControlledForm = () => {
             errors.rating = 'Rating must be between 1 and 5';
         };
         setErrors(errors)
-    }
+    };
 
     return (
         <MyContainer>

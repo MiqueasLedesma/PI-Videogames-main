@@ -6,7 +6,7 @@ import { Route, Switch } from 'react-router-dom';
 import { Home } from './components/Home';
 import { Genres } from './components/Genres';
 // import store from './Redux/store';
-import { getVideogames } from './Redux/actions';
+import { getGenres, getVideogames } from './Redux/actions';
 import { useEffect, useState } from 'react';
 import { Pagination } from './components/Pagination';
 import styled from 'styled-components';
@@ -33,7 +33,10 @@ function App() {
   const [games, setGames] = useState([]);
 
 
-  if (reduxState.videogames[0] === undefined) dispatch(getVideogames())
+  if (reduxState.videogames[0] === undefined) dispatch(getVideogames());
+  if (reduxState.genres[0] === undefined) dispatch(getGenres());
+
+  let genres = reduxState.genres;
 
   const [currentPage, setCurrentPage] = useState(1);
   const [gamesPerPage] = useState(15);
@@ -72,7 +75,7 @@ function App() {
 
     setGames(getGames);
 
-  },[reduxState, games]);
+  }, [reduxState, games]);
 
 
 
@@ -91,7 +94,7 @@ function App() {
       </Route>
       <Switch>
         <Route exact path={'/genres'}>
-          {games[0] !== undefined ? <Genres /> : <Loading />}
+          {games[0] !== undefined ? <Genres genres={genres} /> : <Loading />}
         </Route>
         <Route exact path={'/'}>
           {games[0] !== undefined ? <Home /> : <Loading />}
