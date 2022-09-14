@@ -5,7 +5,7 @@ import { getVideogameByID } from '../Redux/actions';
 import { useDispatch } from 'react-redux';
 
 const MyCard = styled.div`
-  opacity: 0.7;
+  opacity: 0.4;
   margin: 7px;
   padding: 7px;
   height: fit-content;
@@ -37,19 +37,10 @@ background-color:#3a352f
 
 //LOGICA!
 //---------------------------------------------------------------------------------------------------------------------------------------------
-/* 
-const hadnleClick = (e) => {
-  console.log('esto esta re loco);
-  const dispatch = useDispatch();
-  e.preventDefault();
-  dispatch(getVideogameByID(id));
-};
- */
 
 export const Card = ({ name, image, id }) => {
-
+  console.log(id);
   const dispatch = useDispatch();
-
   const handleClick = (id) => {
     dispatch(getVideogameByID(id))
   }

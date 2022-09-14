@@ -36,13 +36,6 @@ export const getVideogameByID = (id) => async (dispatch) => {
         .catch(e => console.log(e));
 };
 
-export const showSearchResults = () => async (dispatch) => {
-    return dispatch({
-        type: SHOW_SEARCH_RESULTS,
-        payload: true
-    });
-};
-
 export const sortGamesLowMax = () => async (dispatch) => {
     return dispatch({
         type: SORT_LOW_MAX,
@@ -73,3 +66,10 @@ export const genresFilter = (e) => async (dispatch) => {
         payload: e
     });
 };
+
+export const createGame = (input) => async () => {
+    console.log(input);
+    return await axios.post(`http://localhost:3001/videogames`, input)
+        .then(r => alert('VIDEOGAME CREATED!'))
+        .catch(e => console.log(e));
+}

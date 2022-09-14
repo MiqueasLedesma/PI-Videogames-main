@@ -7,17 +7,12 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { Pagination } from './Pagination';
 
-const MyBackground = styled.div`
-margin-top: -21px;
-height: 100vh;
-background-image: url(${img});
-background-size: cover;
-`;
-
 const ButtonGroup = styled.div`
+margin-left: 90px;
 height: fit-content;
-display: grid;
-grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
+width: fit-content;
+display: inline;
+grid-template-columns: max-content;
 justify-content: center;
 `;
 
@@ -26,9 +21,8 @@ height: fit-content;
 display: grid;
 grid-template-columns: auto auto auto auto auto auto;
 justify-content: center;
-/* background-image: url(${img});
-background-size: cover; */
-background-color: transparent;
+background-image: url(${img});
+background-size: cover;
 `;
 
 export const Genres = ({ genres }) => {
@@ -43,16 +37,17 @@ export const Genres = ({ genres }) => {
   const currentGames = reduxState.slice(indexOfFirstGame, indexOfLastGame)
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
+  
   return (
     <div>
       <ButtonGroup>
         {
-          genres?.map(e => <GenresCard e={e} key={genres.indexOf(e)} />)
+          genres?.map(e => <GenresCard e={e} key={genres.indexOf(e)} setCurrentPage={setCurrentPage} />)
         }
       </ButtonGroup>
       <MyContainer>
-        {reduxState[0] && currentGames.map(e => <Card
+        {
+        reduxState[0] && currentGames.map(e => <Card
           key={e.id}
           id={e.id}
           name={e.name}
@@ -62,7 +57,7 @@ export const Genres = ({ genres }) => {
           image={e.image}
         />)}
         <div>
-          <Pagination gamesPerPage={gamesPerPage} totalGames={reduxState.length} paginate={paginate} />
+          <Pagination gamesPerPage={gamesPerPage} totalGames={reduxState.length} paginate={paginate}  />
         </div>
       </MyContainer>
     </div>

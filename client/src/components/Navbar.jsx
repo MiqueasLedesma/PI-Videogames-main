@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { /* Link */ NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { getVideogamesByName, showSearchResults, sortGamesLowMax, sortGamesMaxLow } from '../Redux/actions';
+import { getVideogamesByName } from '../Redux/actions';
 //Estilos CSS
 //------------------------------------------------------------------------------------------------------------------------------------
 
@@ -29,10 +29,6 @@ const MyLi = styled.li`
 float: left;
 `;
 
-// const MyLinkButton = styled(Link)`
-
-// `;
-
 const MyLink = styled(NavLink)`
   float: left;
   display: block;
@@ -47,13 +43,10 @@ transition: 0.4s;
   background-color: #04AA6D;
   padding: 14px 18px;
 };
-/* &:active {
-  background-color: #04AA6D;
-  color: black;
-} */
 `;
 
 const MyInput = styled.input`
+  margin-right: 20px;
   float: right;
   display: block;
   color: black;
@@ -65,45 +58,8 @@ const MyInput = styled.input`
   border-right: none;
   border-bottom: none;
   border-top: none;
-  width: 130px;
-  -webkit-transition: width 0.2s ease-in-out;
-  transition: width 0.2s ease-in-out;
-  &:focus {
-    width: 100%;
-  }
+  width: 180px;
 `;
-
-const MyButton = styled.button`
-margin-right: 20px;
-position: relative;
-background-color: #4DD8DA;
-border: none;
-font-size: 16px;
-color: #FFFFFF;
-padding: 14px;
-width: 80px;
-text-align: center;
-text-decoration: none;
-overflow: hidden;
-&:after {
-  content: "";
-  background: black;
-  display: block;
-  position: absolute;
-  padding-top: 300%;
-  padding-left: 350%;
-  margin-left: -20px!important;
-  margin-top: -120%;
-  opacity: 0;
-  transition: all 0.8s
-  }
-  &:active:after {
-  padding: 0;
-  margin: 0;
-  opacity: 1;
-  transition: 0s
-}
- `;
 
 // Componente || logica
 //-------------------------------------------------------------------------------------------------------------------------------------------
@@ -114,30 +70,17 @@ export const Navbar = () => {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
 
-
   const handleChange = (e) => {
     e.preventDefault();
     setName(e.target.value);
 
   };
 
-  const handleSubmit = (e) => {
+  const handleClick = (e) => {
     e.preventDefault();
     dispatch(getVideogamesByName(name));
     setName('');
-    dispatch(showSearchResults());
   };
-
-  const handleSortA = (e) => {
-    e.preventDefault();
-    dispatch(sortGamesLowMax());
-  }
-
-  const handleSortB = (e) => {
-    e.preventDefault();
-    dispatch(sortGamesMaxLow());
-  }
-
 
   return (
     <MyDiv>
@@ -146,10 +89,8 @@ export const Navbar = () => {
         <MyLi><MyLink to={'/videogames'}>Videogames!</MyLink></MyLi>
         <MyLi><MyLink to={'/genres'}>Genres</MyLink></MyLi>
         <MyLi><MyLink to={'/creategame'}>CreateGame</MyLink></MyLi>
-        <MyLi><button onClick={(e) => handleSortA(e)}>A-Z</button></MyLi>
-        <MyLi><button onClick={(e) => handleSortB(e)}>Z-A</button></MyLi>
-        <MyLi style={RightLI}><MyButton onClick={(e) => handleSubmit(e)}>Search</MyButton></MyLi>
         <MyLi style={RightLI}><MyInput type="text" placeholder="Search.." onChange={(e) => handleChange(e)} /></MyLi>
+        <MyLi style={RightLI} onClick={(e) => handleClick(e)}><MyLink to={'/searchvideogame'}>Search</MyLink></MyLi>
       </MyUl>
     </MyDiv>
   )

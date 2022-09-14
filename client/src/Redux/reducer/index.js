@@ -1,14 +1,13 @@
-import { GENRE_FILTER, GET_GENRES, GET_VIDEOGAMES, GET_VIDEOGAMES_BY_NAME, GET_VIDEOGAME_BY_ID, SHOW_SEARCH_RESULTS, SORT_LOW_MAX, SORT_MAX_LOW } from '../actions/index'
+import { GENRE_FILTER, GET_GENRES, GET_VIDEOGAMES, GET_VIDEOGAMES_BY_NAME, GET_VIDEOGAME_BY_ID, /* SHOW_SEARCH_RESULTS, */ SORT_LOW_MAX, SORT_MAX_LOW } from '../actions/index'
 
 const initialState = {
     videogames: [],
-    videogameSearch: [],
+    searchResults: [],
     videogameDetails: [],
     videogameFilter: [],
     genres: [],
     platforms: [],
-    searchResults: false,
-    sortBy: false
+
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -21,18 +20,13 @@ const rootReducer = (state = initialState, action) => {
                 }
             } break;
         case GET_VIDEOGAMES_BY_NAME:
-            if (action.payload) {
-                return {
-                    ...state,
-                    videogameSearch: action.payload
-                }
-            } break;
-        case SHOW_SEARCH_RESULTS:
-            if (action.payload) {
+            if (action.payload.length !== 0) {
                 return {
                     ...state,
                     searchResults: action.payload
                 }
+            } else {
+                alert('videogame not found!')
             } break;
         case GET_VIDEOGAME_BY_ID:
             if (action.payload) {
@@ -46,14 +40,30 @@ const rootReducer = (state = initialState, action) => {
             if (action.payload) {
                 return {
                     ...state,
-                    sortBy: action.payload
+                    videogames: state.videogames.sort(function (a, b) {
+                        if (a.name > b.name) {
+                            return 1;
+                        };
+                        if (a.name < b.name) {
+                            return -1;
+                        };
+                        return 0;
+                    })
                 }
             } break;
         case SORT_MAX_LOW:
             if (action.payload) {
                 return {
                     ...state,
-                    sortBy: action.payload
+                    videogames: state.videogames.sort(function (a, b) {
+                        if (a.name > b.name) {
+                            return 1;
+                        };
+                        if (a.name < b.name) {
+                            return -1;
+                        };
+                        return 0;
+                    }).reverse()
                 }
             } break;
         case GET_GENRES:

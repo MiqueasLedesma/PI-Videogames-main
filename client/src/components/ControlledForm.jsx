@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { createGame } from '../Redux/actions';
 
 const MyContainer = styled.div`
   margin-top: -21px;
@@ -34,12 +35,11 @@ export const ControlledForm = () => {
         description: '',
         rating: '',
         platforms: '',
-        genres: ''
+        genres: '',
+        released:''
     });
 
     const [errors, setErrors] = useState({});
-
-    
 
     const validate = (input) => {
         let errors = {};
@@ -58,32 +58,58 @@ export const ControlledForm = () => {
         } else if (!/^[1-5]$/.test(input.rating)) {
             errors.rating = 'Rating must be between 1 and 5';
         };
-        setErrors(errors)
+        return (errors);
+    };
+
+    const handleChange = (e) => {
+        setInput({
+            ...input,
+            [e.target.name]: e.target.value
+        });
+        setErrors(validate({
+            ...input,
+            [e.target.name]: e.target.value
+        }));
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (errors.name === 'Game Name is required' || errors.description === 'Description must have at least 8 characters' || errors.rating === 'Rating is required' || errors.rating === 'Rating must be between 1 and 5') console.log(errors);
+        else {
+            dispatch(createGame(input))
+            console.log('Formulario valido!')
+        }
     };
 
     return (
         <MyContainer>
-            <MyForm action="">
+            <MyForm action="" onSubmit={(e) => handleSubmit(e)}>
                 <h1>Create Videogame!</h1>
                 <hr />
                 <label htmlFor='name'>name</label>
-                <input name="name" type="text" placeholder='name' value={input.name} onChange={(e) => validate(e.target.value)} />
+                <input name="name" type="text" placeholder='name' value={input.name} onChange={(e) => handleChange(e)} />
                 <br />
                 <hr />
                 <label htmlFor="description">description</label>
-                <input name="description" type="text" placeholder='description' value={input.description} onChange={(e) => validate(e.target.value)} />
+                <input name="description" type="text" placeholder='description' value={input.description} onChange={(e) => handleChange(e)} />
                 <br />
                 <hr />
                 <label htmlFor="released">released</label>
-                <input name="released" type="text" placeholder='release date' value={input.released} onChange={(e) => validate(e.target.value)} />
+                <input name="released" type="text" placeholder='release date' value={input.released} onChange={(e) => handleChange(e)} />
                 <br />
                 <hr />
-                <label htmlFor="platform">platforms</label>
-                <input name="platform" type="text" placeholder='platforms' value={input.platforms} onChange={(e) => validate(e.target.value)} />
+
+                <label htmlFor="platforms">platforms</label>
+                <input type="text" name="platforms" placeholder='platforms' value={input.platforms} onChange={(e) => handleChange(e)} />
+                <br />
+                <hr />
+
+                <label htmlFor="rating">rating</label>
+                <input type="text" name="rating" placeholder='rating' value={input.rating} onChange={(e) => handleChange(e)} />
                 <br />
                 <hr />
                 <label htmlFor="genres">genres</label>
-                <input type="text" name="genres" placeholder='genres' value={input.genres} onChange={(e) => validate(e.target.value)} />
+                <input type="text" name="genres" placeholder='genres' value={input.genres} onChange={(e) => handleChange(e)} />
                 <br />
                 <hr />
                 <button type="submit">Create!</button>

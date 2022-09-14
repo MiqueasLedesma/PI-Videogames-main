@@ -10,13 +10,36 @@ const MyDiv = styled.div`
     display: inline-block;
 `;
 
-export const GenresCard = ({ e }) => {
+const MyButton = styled.button`
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+  transition: 0.3s;
+  &:hover {
+    background-color: black;
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+`;
 
-    const dispatch = useDispatch();
+export const GenresCard = ({ e , setCurrentPage}) => {
 
-    return (
-        <MyDiv>
-            <button onClick={() => dispatch(genresFilter(e))}>{e}</button>
-        </MyDiv>
-    )
+  const dispatch = useDispatch();
+  
+  const handleClick = () => {
+    dispatch(genresFilter(e));
+    setCurrentPage(1);
+  };
+
+
+  return (
+    <MyDiv>
+      <MyButton onClick={() => handleClick()}>{e}</MyButton>
+    </MyDiv>
+  )
 }
