@@ -25,8 +25,7 @@ const getVideogames = async () => {
 };
 
 const getVideogameQuery = async (name) => {
-    // console.log(name)
-    // console.log(name.split(' ').join('-'))
+
     let responseVG;
     await axios.get(`https://api.rawg.io/api/games?search=${name.split(' ').join('-')}&key=${YOUR_API_KEY}`)
         .then(r => {
@@ -42,7 +41,7 @@ const getVideogameQuery = async (name) => {
                 };
             });
         });
-    // console.log(responseVG)
+
     let gamesDB = await Videogame.findAll({
         where: {
             name: '%' + name + '%'

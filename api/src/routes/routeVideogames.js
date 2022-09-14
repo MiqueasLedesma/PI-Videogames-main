@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        let { name, description, rating, platform, released, genres } = req.body;
+        let { name, description, rating, platform, released, genre } = req.body;
         let newGame = await Videogame.create({
             name,
             description,
@@ -40,7 +40,7 @@ router.post('/', async (req, res) => {
         });
         let genreDB = await Genre.findAll({
             where: {
-                name: genres
+                name: genre
             }
         });
         newGame.addGenre(genreDB);
