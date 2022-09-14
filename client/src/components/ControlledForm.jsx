@@ -5,28 +5,32 @@ import styled from 'styled-components';
 import { createGame } from '../Redux/actions';
 
 const MyContainer = styled.div`
-  margin-top: -21px;
-  justify-content: center;
-  background-color: #333;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  max-width: 100%;
-  height: 100%;
-  text-align: center;
-  font-family: arial;
+height: fit-content;
+display: grid;
+justify-content: center;
+align-items: center;
+background-size: cover;
 `;
 
 const MyForm = styled.form`
-  justify-content: center;
-  background-color: #212121;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  max-width: 100%;
-  height: 100%;
-  text-align: center;
-  font-family: arial;
+display: grid;
+align-items: center;
+justify-content: center;
+width: 600px;
+background-color: black;
 `;
 
+const MyInput = styled.input`
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  width: 150px;
+`;
 
-
+const MyLabel = styled.label`
+color: white;
+`;
 
 export const ControlledForm = () => {
     const dispatch = useDispatch();
@@ -36,7 +40,7 @@ export const ControlledForm = () => {
         rating: '',
         platforms: '',
         genres: '',
-        released:''
+        released: ''
     });
 
     const [errors, setErrors] = useState({});
@@ -58,6 +62,11 @@ export const ControlledForm = () => {
         } else if (!/^[1-5]$/.test(input.rating)) {
             errors.rating = 'Rating must be between 1 and 5';
         };
+        if (!input.released) {
+            errors.released = 'Released date is required';
+        } else if (!/^(?:3[01]|[12][0-9]|0?[1-9])([\-/.])(0?[1-9]|1[1-2])\1\d{4}$/.test(input.released)) {
+            errors.released = 'Released date must be dd-mm-aaaa';
+        };
         return (errors);
     };
 
@@ -74,7 +83,15 @@ export const ControlledForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (errors.name === 'Game Name is required' || errors.description === 'Description must have at least 8 characters' || errors.rating === 'Rating is required' || errors.rating === 'Rating must be between 1 and 5') console.log(errors);
+        if (input.name === '' || input.rating === '' || input.released === '' || input.description === '') return alert('Form must be complete!')
+
+        else if (errors.name === 'Game Name is required' || errors.description === 'Description must have at least 8 characters' || errors.rating === 'Rating is required' || errors.rating === 'Rating must be between 1 and 5' || errors.released === 'Released date is required' || errors.released === 'Released date must be dd-mm-aaaa') {
+            let alertas = [];
+            for (let err in errors) {
+                alertas.push(errors[err])
+            }
+            return alert(alertas)
+        }
         else {
             dispatch(createGame(input))
             console.log('Formulario valido!')
@@ -85,33 +102,18 @@ export const ControlledForm = () => {
         <MyContainer>
             <MyForm action="" onSubmit={(e) => handleSubmit(e)}>
                 <h1>Create Videogame!</h1>
-                <hr />
-                <label htmlFor='name'>name</label>
-                <input name="name" type="text" placeholder='name' value={input.name} onChange={(e) => handleChange(e)} />
-                <br />
-                <hr />
-                <label htmlFor="description">description</label>
-                <input name="description" type="text" placeholder='description' value={input.description} onChange={(e) => handleChange(e)} />
-                <br />
-                <hr />
-                <label htmlFor="released">released</label>
-                <input name="released" type="text" placeholder='release date' value={input.released} onChange={(e) => handleChange(e)} />
-                <br />
-                <hr />
-
-                <label htmlFor="platforms">platforms</label>
-                <input type="text" name="platforms" placeholder='platforms' value={input.platforms} onChange={(e) => handleChange(e)} />
-                <br />
-                <hr />
-
-                <label htmlFor="rating">rating</label>
-                <input type="text" name="rating" placeholder='rating' value={input.rating} onChange={(e) => handleChange(e)} />
-                <br />
-                <hr />
-                <label htmlFor="genres">genres</label>
-                <input type="text" name="genres" placeholder='genres' value={input.genres} onChange={(e) => handleChange(e)} />
-                <br />
-                <hr />
+                <MyLabel htmlFor='name'>name</MyLabel>
+                <MyInput name="name" type="text" placeholder='name' value={input.name} onChange={(e) => handleChange(e)} />
+                <MyLabel htmlFor="description">description</MyLabel>
+                <MyInput name="description" type="text" placeholder='description' value={input.description} onChange={(e) => handleChange(e)} />
+                <MyLabel htmlFor="released">released</MyLabel>
+                <MyInput name="released" type="text" placeholder='release date' value={input.released} onChange={(e) => handleChange(e)} />
+                <MyLabel htmlFor="platforms">platforms</MyLabel>
+                <MyInput type="text" name="platforms" placeholder='platforms' value={input.platforms} onChange={(e) => handleChange(e)} />
+                <MyLabel htmlFor="rating">rating</MyLabel>
+                <MyInput type="text" name="rating" placeholder='rating' value={input.rating} onChange={(e) => handleChange(e)} />
+                <MyLabel htmlFor="genres">genres</MyLabel>
+                <MyInput type="text" name="genres" placeholder='genres' value={input.genres} onChange={(e) => handleChange(e)} />
                 <button type="submit">Create!</button>
             </MyForm>
         </MyContainer>
