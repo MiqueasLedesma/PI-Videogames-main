@@ -1,7 +1,7 @@
 // const { default: axios } = require('axios');
 // const { response } = require('express');
 let express = require('express');
-const { Genre, Videogame } = require('../db');
+const { Genres, Videogame } = require('../db');
 // const Genres = require('../models/Genres');
 const { getVideogames, getVideogameQuery } = require('./Controllers/controllersVG');
 // const { sequelize } = require('sequelize');
@@ -30,17 +30,17 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        let { name, description, rating, platform, released, genre } = req.body;
+        let { name, description, rating, platforms, released, genres } = req.body;
         let newGame = await Videogame.create({
             name,
             description,
             rating,
-            platform,
+            platforms,
             released
         });
-        let genreDB = await Genre.findAll({
+        let genreDB = await Genres.findAll({
             where: {
-                name: genre
+                name: genres
             }
         });
         newGame.addGenre(genreDB);

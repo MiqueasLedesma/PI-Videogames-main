@@ -1,10 +1,10 @@
 const { Router } = require('express');
-const { Genre } = require('../db');
+const { Genres } = require('../db');
 const router = Router();
 
 router.get('/', async (req, res) => {
     try {
-        const allGenres = await Genre.findAll({
+        const allGenres = await Genres.findAll({
             name: 'name'
         });
         let dbGenres = allGenres.map(e => e.name)

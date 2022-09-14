@@ -31,13 +31,13 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Videogame, Genre } = sequelize.models;
+const { Videogame, Genres } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 
-Videogame.belongsToMany(Genre, { through: 'videogameGenre' });
-Genre.belongsToMany(Videogame, { through: 'videogameGenre' });
+Videogame.belongsToMany(Genres, { through: 'videogameGenre' });
+Genres.belongsToMany(Videogame, { through: 'videogameGenre' });
 
 // let YOUR_API_KEY = '2e4976c2679c4f378ccf9af9c490a4b3'
 
@@ -48,7 +48,7 @@ const injectInfo = async () => {
   try {
     await axios.get(urlBase).then(r => genres = r.data.results.map(p => p.name))
     genres.forEach(e => {
-      Genre.findOrCreate({
+      Genres.findOrCreate({
         where: {
           name: e
         }

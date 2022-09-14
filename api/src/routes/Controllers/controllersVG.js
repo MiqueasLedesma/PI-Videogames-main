@@ -1,6 +1,7 @@
 const { default: axios } = require('axios');
 // const { response } = require("express");
-const { YOUR_API_KEY, Genre, Videogame } = require('../../db');
+const { YOUR_API_KEY, Genres, Videogame } = require('../../db');
+const { Op } = require('sequelize');
 
 const getVideogames = async () => {
     let showVideogames = [];
@@ -44,11 +45,11 @@ const getVideogameQuery = async (name) => {
 
     let gamesDB = await Videogame.findAll({
         where: {
-            name: '%' + name + '%'
-        }, include: Genre,
-        raw: true
+            name: { [Op.iLike]: '%' + name + '%' }
+        }, include: Genres
+        /* raw: true */
     });
-    console.log(gamesDB);
+    console.log(gamesDB)
     let responseDB = gamesDB.map(el => {
         return {
             id: el.id,
@@ -57,12 +58,11 @@ const getVideogameQuery = async (name) => {
             image: el.image,
             release: el.release,
             rating: el.rating,
-            platforms: el.platforms.map(ch => ch),
-            genres: el.genres.map(ch => ch.name),
-            createdInDB: el.createdInDB
+            platforms: el.platforms,
+            genres: el.genres
+            /* createdInDB: el.createdInDB */
         }
     })
-
     return responseVG.concat(responseDB);
 };
 
