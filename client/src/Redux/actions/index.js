@@ -43,28 +43,28 @@ export const getVideogameByID = (id) => async (dispatch) => {
 export const sortGamesLowMax = () => async (dispatch) => {
     return dispatch({
         type: SORT_LOW_MAX,
-        payload: true
+        payload: 'ABC'
     });
 };
 
 export const sortGamesMaxLow = () => async (dispatch) => {
     return dispatch({
         type: SORT_MAX_LOW,
-        payload: true
+        payload: 'CBA'
     });
 };
 
 export const SortGamesLowMaxA = () => async (dispatch) => {
     return dispatch({
         type: SORT_MAX_LOW_A,
-        payload: true
+        payload: '15'
     });
 };
 
 export const SortGamesLowMaxB = () => async (dispatch) => {
     return dispatch({
         type: SORT_MAX_LOW_B,
-        payload: true
+        payload: '51'
     });
 };
 

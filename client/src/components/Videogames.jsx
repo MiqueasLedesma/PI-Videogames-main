@@ -41,11 +41,16 @@ const MyButton = styled.button`
   }
 `;
 
+const inUse = {
+  backgroundColor: 'red',
+  fontSize: 16 + 'px'
+}
 
 export const Videogames = () => {
 
   const dispatch = useDispatch();
   const reduxState = useSelector(state => state.videogames);
+  const reduxState2 = useSelector(state => state.sortBy);
 
   const handleSortA = (e) => {
     e.preventDefault();
@@ -82,10 +87,10 @@ export const Videogames = () => {
 
   return (<>
     <MyDiv>
-      <MyButton onClick={(e) => handleSortA(e)}>A-Z</MyButton>
-      <MyButton onClick={(e) => handleSortB(e)}>Z-A</MyButton>
-      <MyButton onClick={(e) => handleSortBA(e)}>1-5</MyButton>
-      <MyButton onClick={(e) => handleSortAB(e)}>5-1</MyButton>
+      <MyButton onClick={(e) => handleSortA(e)} style={reduxState2 === 'ABC' ? inUse : null}>A-Z</MyButton>
+      <MyButton onClick={(e) => handleSortB(e)} style={reduxState2 === 'CBA' ? inUse : null}>Z-A</MyButton>
+      <MyButton onClick={(e) => handleSortBA(e)} style={reduxState2 === '15' ? inUse : null}>1-5</MyButton>
+      <MyButton onClick={(e) => handleSortAB(e)} style={reduxState2 === '51' ? inUse : null}>5-1</MyButton>
     </MyDiv>
     <MyContainer>
       {
@@ -100,7 +105,7 @@ export const Videogames = () => {
         />)
       }
       <div>
-        <Pagination gamesPerPage={gamesPerPage} totalGames={reduxState.length} paginate={paginate} currentPage={currentPage}/>
+        <Pagination gamesPerPage={gamesPerPage} totalGames={reduxState.length} paginate={paginate} currentPage={currentPage} />
       </div>
     </MyContainer>
   </>

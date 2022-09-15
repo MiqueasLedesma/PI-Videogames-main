@@ -21,18 +21,16 @@ background-size: cover;
 
 export const SearchResults = () => {
 
-    const reduxState = useSelector(state => state.searchResults)
-    const reduxState2 = useSelector(state => state.videogames)
+    const reduxState = useSelector(state => state.searchResults);
+    const reduxState2 = useSelector(state => state.videogames);
     const [currentPage, setCurrentPage] = useState(1);
     const [gamesPerPage] = useState(15);
 
     const indexOfLastGame = currentPage * gamesPerPage;
     const indexOfFirstGame = indexOfLastGame - gamesPerPage;
-    const currentGames = reduxState.slice(indexOfFirstGame, indexOfLastGame)
+    const currentGames = reduxState.slice(indexOfFirstGame, indexOfLastGame);
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-    console.log(reduxState)
 
     if (!reduxState2[0]) return (
         <>

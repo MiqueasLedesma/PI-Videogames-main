@@ -7,6 +7,7 @@ const initialState = {
     videogameFilter: [],
     genres: [],
     platforms: [],
+    sortBy: ''
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -39,6 +40,7 @@ const rootReducer = (state = initialState, action) => {
             if (action.payload) {
                 return {
                     ...state,
+                    sortBy: action.payload,
                     videogames: state.videogames.sort(function (a, b) {
                         if (a.name > b.name) {
                             return 1;
@@ -54,6 +56,7 @@ const rootReducer = (state = initialState, action) => {
             if (action.payload) {
                 return {
                     ...state,
+                    sortBy: action.payload,
                     videogames: state.videogames.sort(function (a, b) {
                         if (a.name > b.name) {
                             return 1;
@@ -83,6 +86,7 @@ const rootReducer = (state = initialState, action) => {
             if (action.payload) {
                 return {
                     ...state,
+                    sortBy: action.payload,
                     videogames: state.videogames.sort((a, b) => a.rating - b.rating)
                 }
             } break;
@@ -90,6 +94,7 @@ const rootReducer = (state = initialState, action) => {
             if (action.payload) {
                 return {
                     ...state,
+                    sortBy: action.payload,
                     videogames: state.videogames.sort((a, b) => b.rating - a.rating)
                 }
             } break;

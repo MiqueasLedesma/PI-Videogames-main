@@ -2,7 +2,6 @@ import React from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import { createGame } from '../Redux/actions';
 
@@ -54,7 +53,7 @@ export const ControlledForm = () => {
     const dispatch = useDispatch();
 
     const reduxState = useSelector(state => state.genres);
-
+    const redirect = useSelector(state => state.videogames);
     const [input, setInput] = useState({
         name: '',
         description: '',
@@ -66,7 +65,7 @@ export const ControlledForm = () => {
 
     const [errors, setErrors] = useState({});
 
-    const listOfPlatforms = ['PC', 'XBOX-360', 'XBOX-ONE', 'PS5', 'PS4', 'PS3', 'NINTENDO'];
+    const listOfPlatforms = ['PC', 'XBOX-360', 'XBOX-ONE', 'PS5', 'PS4', 'PS3', 'Nintendo', 'Mac', 'Linux'];
 
     const validate = (input) => {
         let errors = {};
@@ -148,56 +147,52 @@ export const ControlledForm = () => {
         listStyleType: 'none'
     };
 
-    return (
-        <MyContainer>
-            <MyForm action="" onSubmit={(e) => handleSubmit(e)}>
-                <h1>Create Videogame!</h1>
-                <MyLabel htmlFor='name'>name:</MyLabel>
-                <MyInput name="name" type="text" placeholder='name' value={input.name} onChange={(e) => handleChange(e)} />
-                <MyLabel htmlFor="description">description:</MyLabel>
-                <MyInput name="description" type="text" placeholder='description' value={input.description} onChange={(e) => handleChange(e)} />
-                <MyLabel htmlFor="released">released:</MyLabel>
-                <MyInput name="released" type="text" placeholder='dd-mm-aaaa' value={input.released} onChange={(e) => handleChange(e)} />
-                <MyLabel htmlFor="rating">rating:</MyLabel>
-                <MyInput type="text" name="rating" placeholder='rating' value={input.rating} onChange={(e) => handleChange(e)} />
-                <br />
-                <select value={input.platforms} onChange={(e) => handleSelect2(e)}>
-                    <option>
-                        Platforms:
-                    </option>
-                    {
-                        listOfPlatforms.map(e => <option key={listOfPlatforms.indexOf(e)} value={e}>
-                            {e}
-                        </option>)
-                    }
-                </select>
-                <ul>
-                    {
-                        input.platforms.map((e) => <li style={uniqueStyle} key={input.platforms.indexOf(e)}>{e}</li>)
-                    }
-                </ul>
-                <br />
-
-
-
-
-                <select value={input.genres} onChange={(e) => handleSelect1(e)}>
-                    <option>
-                        Genres:
-                    </option>
-                    {
-                        reduxState && reduxState.map(e => <option key={reduxState.indexOf(e)} value={e}>
-                            {e}
-                        </option>)
-                    }
-                </select>
-                <ul>
-                    {
-                        input.genres[0] && input.genres.map((e) => <li style={uniqueStyle} key={input.genres.indexOf(e)}>{e}</li>)
-                    }
-                </ul>
-                <MyButton type="submit">Create!</MyButton>
-            </MyForm>
-        </MyContainer>
-    )
+        return (
+            <MyContainer>
+                <MyForm action="" onSubmit={(e) => handleSubmit(e)}>
+                    <h1>Create Videogame!</h1>
+                    <MyLabel htmlFor='name'>Name:</MyLabel>
+                    <MyInput name="name" type="text" placeholder='name' value={input.name} onChange={(e) => handleChange(e)} />
+                    <MyLabel htmlFor="description">Description:</MyLabel>
+                    <MyInput name="description" type="text" placeholder='description' value={input.description} onChange={(e) => handleChange(e)} />
+                    <MyLabel htmlFor="released">Released:</MyLabel>
+                    <MyInput name="released" type="text" placeholder='dd-mm-aaaa' value={input.released} onChange={(e) => handleChange(e)} />
+                    <MyLabel htmlFor="rating">Rating:</MyLabel>
+                    <MyInput type="text" name="rating" placeholder='rating' value={input.rating} onChange={(e) => handleChange(e)} />
+                    <br />
+                    <select value={input.platforms} onChange={(e) => handleSelect2(e)}>
+                        <option>
+                            Platforms:
+                        </option>
+                        {
+                            listOfPlatforms.map(e => <option key={listOfPlatforms.indexOf(e)} value={e}>
+                                {e}
+                            </option>)
+                        }
+                    </select>
+                    <ul>
+                        {
+                            input.platforms.map((e) => <li style={uniqueStyle} key={input.platforms.indexOf(e)}>{e}</li>)
+                        }
+                    </ul>
+                    <br />
+                    <select value={input.genres} onChange={(e) => handleSelect1(e)}>
+                        <option>
+                            Genres:
+                        </option>
+                        {
+                            reduxState && reduxState.map(e => <option key={reduxState.indexOf(e)} value={e}>
+                                {e}
+                            </option>)
+                        }
+                    </select>
+                    <ul>
+                        {
+                            input.genres[0] && input.genres.map((e) => <li style={uniqueStyle} key={input.genres.indexOf(e)}>{e}</li>)
+                        }
+                    </ul>
+                    <MyButton type="submit">Create!</MyButton>
+                </MyForm>
+            </MyContainer>
+        )
 }

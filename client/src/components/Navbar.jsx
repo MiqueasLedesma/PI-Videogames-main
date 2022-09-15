@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getVideogamesByName } from '../Redux/actions';
 

@@ -62,8 +62,8 @@ function App() {
       </Route>
       <Route exact path={'/creategame'} >
         <Navbar />
-        <ControlledForm />
-        {/* {reduxState.videogames[0] ? <ControlledForm /> : <Loading />} */}
+        {/* <ControlledForm /> */}
+        {reduxState.videogames[0] ? <ControlledForm /> : <Loading />}
       </Route>
       <Route exact path={'/searchvideogame'}>
         <Navbar />
