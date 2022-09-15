@@ -1,17 +1,14 @@
 import React from 'react'
-// import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux'
 import { genresFilter } from '../Redux/actions';
-// import { Card } from './Card';
 import styled from 'styled-components';
-// import img from '../imagenes/7445.webp'
 
 const MyDiv = styled.div`
     display: inline-block;
 `;
 
 const MyButton = styled.button`
-  background-color: #4CAF50; /* Green */
+  background-color: #4CAF50;
   border: none;
   color: white;
   padding: 10px 10px;

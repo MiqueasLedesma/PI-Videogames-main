@@ -15,7 +15,7 @@ const MyLi = styled.li`
 `;
 
 const MyButton = styled.button`
-  background-color: #4CAF50; /* Green */
+  background-color: #4CAF50;
   border: none;
   color: white;
   padding: 10px 10px;
@@ -35,7 +35,12 @@ const MyDiv = styled.div`
 justify-content: center;
 `;
 
-export const Pagination = ({ gamesPerPage, totalGames, paginate }) => {
+const inUse = {
+    backgroundColor: 'red',
+    fontSize: 16 + 'px'
+}
+
+export const Pagination = ({ gamesPerPage, totalGames, paginate ,currentPage}) => {
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(totalGames / gamesPerPage); i++) {
         pageNumbers.push(i);
@@ -44,7 +49,7 @@ export const Pagination = ({ gamesPerPage, totalGames, paginate }) => {
         <MyDiv>
             <Myul>
                 {pageNumbers.map(number => (
-                    <MyLi key={number}><MyButton onClick={() => {
+                    <MyLi key={number}><MyButton style={number === currentPage ? inUse : null} onClick={() => {
                         paginate(number)
                     }}>{number}</MyButton></MyLi>
                 ))}

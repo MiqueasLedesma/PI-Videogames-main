@@ -2,8 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const MyDiv = styled.div`
-   position: fixed;
-   left: 0;
+   position: absolute;
    bottom: 0;
    width: 100%;
    background-color: black;
@@ -16,7 +15,7 @@ const MyDiv = styled.div`
 export const Footer = () => {
     return (
         <MyDiv>
-            <h4>PI - Miqueas Ledesma - Henry</h4>
+            <h5>PI - Miqueas Ledesma - Henry</h5>
         </MyDiv>
     )
 }

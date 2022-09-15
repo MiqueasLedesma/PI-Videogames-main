@@ -5,7 +5,7 @@ import img from '../imagenes/7445.webp'
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { Pagination } from './Pagination';
-import { sortGamesLowMax, sortGamesMaxLow } from '../Redux/actions';
+import { sortGamesLowMax, SortGamesLowMaxA, SortGamesLowMaxB, sortGamesMaxLow } from '../Redux/actions';
 
 const MyContainer = styled.div`
 height: fit-content;
@@ -46,17 +46,30 @@ export const Videogames = () => {
 
   const dispatch = useDispatch();
   const reduxState = useSelector(state => state.videogames);
-  console.log(reduxState);
 
   const handleSortA = (e) => {
     e.preventDefault();
+    setCurrentPage(1);
     dispatch(sortGamesLowMax());
-  }
+  };
 
   const handleSortB = (e) => {
     e.preventDefault();
+    setCurrentPage(1);
     dispatch(sortGamesMaxLow());
-  }
+  };
+
+  const handleSortBA = (e) => {
+    e.preventDefault();
+    setCurrentPage(1);
+    dispatch(SortGamesLowMaxA());
+  };
+
+  const handleSortAB = (e) => {
+    e.preventDefault();
+    setCurrentPage(1);
+    dispatch(SortGamesLowMaxB());
+  };
 
   const [currentPage, setCurrentPage] = useState(1);
   const [gamesPerPage] = useState(15);
@@ -71,8 +84,8 @@ export const Videogames = () => {
     <MyDiv>
       <MyButton onClick={(e) => handleSortA(e)}>A-Z</MyButton>
       <MyButton onClick={(e) => handleSortB(e)}>Z-A</MyButton>
-      <MyButton /* onClick={(e) => handleSortA(e)} */>1-5</MyButton>
-      <MyButton /* onClick={(e) => handleSortB(e)} */>5-1</MyButton>
+      <MyButton onClick={(e) => handleSortBA(e)}>1-5</MyButton>
+      <MyButton onClick={(e) => handleSortAB(e)}>5-1</MyButton>
     </MyDiv>
     <MyContainer>
       {
@@ -87,7 +100,7 @@ export const Videogames = () => {
         />)
       }
       <div>
-        <Pagination gamesPerPage={gamesPerPage} totalGames={reduxState.length} paginate={paginate} />
+        <Pagination gamesPerPage={gamesPerPage} totalGames={reduxState.length} paginate={paginate} currentPage={currentPage}/>
       </div>
     </MyContainer>
   </>

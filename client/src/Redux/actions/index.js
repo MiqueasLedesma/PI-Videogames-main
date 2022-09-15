@@ -7,7 +7,10 @@ export const GET_VIDEOGAME_BY_ID = 'GET_VIDEOGAME_BY_ID';
 export const GET_GENRES = 'GET_GENRES';
 export const SORT_LOW_MAX = 'SORT_LOW_MAX';
 export const SORT_MAX_LOW = 'SORT_MAX_LOW';
+export const SORT_MAX_LOW_A = 'SORT_MAX_LOW_A';
+export const SORT_MAX_LOW_B = 'SORT_MAX_LOW_B';
 export const GENRE_FILTER = 'GENRE_FILTER';
+
 
 export const getVideogames = () => async (dispatch) => {
     return await axios.get('http://localhost:3001/videogames')
@@ -19,6 +22,7 @@ export const getVideogames = () => async (dispatch) => {
 };
 
 export const getVideogamesByName = (name) => async (dispatch) => {
+    console.log(name);
     return await axios.get(`http://localhost:3001/videogames?name=${name}`)
         .then(r => dispatch({
             type: GET_VIDEOGAMES_BY_NAME,
@@ -39,14 +43,28 @@ export const getVideogameByID = (id) => async (dispatch) => {
 export const sortGamesLowMax = () => async (dispatch) => {
     return dispatch({
         type: SORT_LOW_MAX,
-        payload: 'ASCENDENT'
+        payload: true
     });
 };
 
 export const sortGamesMaxLow = () => async (dispatch) => {
     return dispatch({
         type: SORT_MAX_LOW,
-        payload: 'DESENDENT'
+        payload: true
+    });
+};
+
+export const SortGamesLowMaxA = () => async (dispatch) => {
+    return dispatch({
+        type: SORT_MAX_LOW_A,
+        payload: true
+    });
+};
+
+export const SortGamesLowMaxB = () => async (dispatch) => {
+    return dispatch({
+        type: SORT_MAX_LOW_B,
+        payload: true
     });
 };
 
@@ -60,7 +78,6 @@ export const getGenres = () => async (dispatch) => {
 };
 
 export const genresFilter = (e) => async (dispatch) => {
-    console.log(e);
     return dispatch({
         type: GENRE_FILTER,
         payload: e
@@ -72,4 +89,4 @@ export const createGame = (input) => async () => {
     return await axios.post(`http://localhost:3001/videogames`, input)
         .then(r => alert('VIDEOGAME CREATED!'))
         .catch(e => console.log(e));
-}
+};

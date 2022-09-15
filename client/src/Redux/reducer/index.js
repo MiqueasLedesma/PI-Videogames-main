@@ -1,4 +1,4 @@
-import { GENRE_FILTER, GET_GENRES, GET_VIDEOGAMES, GET_VIDEOGAMES_BY_NAME, GET_VIDEOGAME_BY_ID, /* SHOW_SEARCH_RESULTS, */ SORT_LOW_MAX, SORT_MAX_LOW } from '../actions/index'
+import { GENRE_FILTER, GET_GENRES, GET_VIDEOGAMES, GET_VIDEOGAMES_BY_NAME, GET_VIDEOGAME_BY_ID, /* SHOW_SEARCH_RESULTS, */ SORT_LOW_MAX, SORT_MAX_LOW, SORT_MAX_LOW_A, SORT_MAX_LOW_B } from '../actions/index'
 
 const initialState = {
     videogames: [],
@@ -7,7 +7,6 @@ const initialState = {
     videogameFilter: [],
     genres: [],
     platforms: [],
-
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -20,6 +19,7 @@ const rootReducer = (state = initialState, action) => {
                 }
             } break;
         case GET_VIDEOGAMES_BY_NAME:
+            console.log(action.payload)
             if (action.payload.length !== 0) {
                 return {
                     ...state,
@@ -30,7 +30,6 @@ const rootReducer = (state = initialState, action) => {
             } break;
         case GET_VIDEOGAME_BY_ID:
             if (action.payload) {
-                console.log(action.payload)
                 return {
                     ...state,
                     videogameDetails: action.payload
@@ -79,6 +78,20 @@ const rootReducer = (state = initialState, action) => {
                     ...state,
                     videogameFilter: state.videogames.filter(e => e.genres.includes(action.payload))
                 };
+            } break;
+        case SORT_MAX_LOW_A:
+            if (action.payload) {
+                return {
+                    ...state,
+                    videogames: state.videogames.sort((a, b) => a.rating - b.rating)
+                }
+            } break;
+        case SORT_MAX_LOW_B:
+            if (action.payload) {
+                return {
+                    ...state,
+                    videogames: state.videogames.sort((a, b) => b.rating - a.rating)
+                }
             } break;
         default:
             return state;

@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import { createGame } from '../Redux/actions';
 
@@ -25,25 +27,46 @@ const MyInput = styled.input`
   text-align: center;
   text-decoration: none;
   font-size: 16px;
-  width: 150px;
+  width: 300px;
 `;
 
 const MyLabel = styled.label`
 color: white;
 `;
 
+const MyButton = styled.button`
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  background-color: black;
+transition: 0.4s;
+&:hover {
+  background-color: #04AA6D;
+  padding: 14px 18px;
+};
+`;
+
 export const ControlledForm = () => {
+
     const dispatch = useDispatch();
+
+    const reduxState = useSelector(state => state.genres);
+
     const [input, setInput] = useState({
         name: '',
         description: '',
         rating: '',
-        platforms: '',
-        genres: '',
+        platforms: [],
+        genres: [],
         released: ''
     });
 
     const [errors, setErrors] = useState({});
+
+    const listOfPlatforms = ['PC', 'XBOX-360', 'XBOX-ONE', 'PS5', 'PS4', 'PS3', 'NINTENDO'];
 
     const validate = (input) => {
         let errors = {};
@@ -95,26 +118,85 @@ export const ControlledForm = () => {
         else {
             dispatch(createGame(input))
             console.log('Formulario valido!')
-        }
+        };
+    };
+
+    const handleSelect1 = (e) => {
+        if (input.genres.includes(e.target.value)) return alert(`Can't choose the same genre!`);
+        if (input.genres.length >= 2) return alert(`Can't choose more genres!`)
+        setInput((genres) => {
+            return {
+                ...genres,
+                genres: [...input.genres, e.target.value]
+            };
+        });
+    };
+
+    const handleSelect2 = (e) => {
+        if (input.platforms.includes(e.target.value)) return alert(`can't choose the same platform!`);
+        if (input.platforms.length >= 5) return alert(`can't choose more platforms!`)
+        setInput((platforms) => {
+            return {
+                ...platforms,
+                platforms: [...input.platforms, e.target.value]
+            }
+        })
+    }
+
+    const uniqueStyle = {
+        color: 'white',
+        listStyleType: 'none'
     };
 
     return (
         <MyContainer>
             <MyForm action="" onSubmit={(e) => handleSubmit(e)}>
                 <h1>Create Videogame!</h1>
-                <MyLabel htmlFor='name'>name</MyLabel>
+                <MyLabel htmlFor='name'>name:</MyLabel>
                 <MyInput name="name" type="text" placeholder='name' value={input.name} onChange={(e) => handleChange(e)} />
-                <MyLabel htmlFor="description">description</MyLabel>
+                <MyLabel htmlFor="description">description:</MyLabel>
                 <MyInput name="description" type="text" placeholder='description' value={input.description} onChange={(e) => handleChange(e)} />
-                <MyLabel htmlFor="released">released</MyLabel>
-                <MyInput name="released" type="text" placeholder='release date' value={input.released} onChange={(e) => handleChange(e)} />
-                <MyLabel htmlFor="platforms">platforms</MyLabel>
-                <MyInput type="text" name="platforms" placeholder='platforms' value={input.platforms} onChange={(e) => handleChange(e)} />
-                <MyLabel htmlFor="rating">rating</MyLabel>
+                <MyLabel htmlFor="released">released:</MyLabel>
+                <MyInput name="released" type="text" placeholder='dd-mm-aaaa' value={input.released} onChange={(e) => handleChange(e)} />
+                <MyLabel htmlFor="rating">rating:</MyLabel>
                 <MyInput type="text" name="rating" placeholder='rating' value={input.rating} onChange={(e) => handleChange(e)} />
-                <MyLabel htmlFor="genres">genres</MyLabel>
-                <MyInput type="text" name="genres" placeholder='genres' value={input.genres} onChange={(e) => handleChange(e)} />
-                <button type="submit">Create!</button>
+                <br />
+                <select value={input.platforms} onChange={(e) => handleSelect2(e)}>
+                    <option>
+                        Platforms:
+                    </option>
+                    {
+                        listOfPlatforms.map(e => <option key={listOfPlatforms.indexOf(e)} value={e}>
+                            {e}
+                        </option>)
+                    }
+                </select>
+                <ul>
+                    {
+                        input.platforms.map((e) => <li style={uniqueStyle} key={input.platforms.indexOf(e)}>{e}</li>)
+                    }
+                </ul>
+                <br />
+
+
+
+
+                <select value={input.genres} onChange={(e) => handleSelect1(e)}>
+                    <option>
+                        Genres:
+                    </option>
+                    {
+                        reduxState && reduxState.map(e => <option key={reduxState.indexOf(e)} value={e}>
+                            {e}
+                        </option>)
+                    }
+                </select>
+                <ul>
+                    {
+                        input.genres[0] && input.genres.map((e) => <li style={uniqueStyle} key={input.genres.indexOf(e)}>{e}</li>)
+                    }
+                </ul>
+                <MyButton type="submit">Create!</MyButton>
             </MyForm>
         </MyContainer>
     )

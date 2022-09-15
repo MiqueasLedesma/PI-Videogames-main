@@ -11,7 +11,6 @@ const Spin = keyframes`
 `;
 
 const MyDiv = styled.div`
-/* position: absolute; */
   border: 15px solid #f3f3f3;
   border-top: 10px solid #3498db;
   border-radius: 50%;
@@ -26,9 +25,6 @@ const MyDiv = styled.div`
 
 `;
 
-// const MyH2 = styled.h2`
-
-// `;
 
 export const Loading = () => {
   return (

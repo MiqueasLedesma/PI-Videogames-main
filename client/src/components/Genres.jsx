@@ -57,7 +57,7 @@ export const Genres = ({ genres }) => {
           image={e.image}
         />)}
         <div>
-          <Pagination gamesPerPage={gamesPerPage} totalGames={reduxState.length} paginate={paginate}  />
+          <Pagination gamesPerPage={gamesPerPage} totalGames={reduxState.length} paginate={paginate} currentPage={currentPage} />
         </div>
       </MyContainer>
     </div>

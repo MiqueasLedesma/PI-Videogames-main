@@ -5,6 +5,7 @@ import img from '../imagenes/7445.webp'
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { Pagination } from './Pagination';
+import { Redirect } from 'react-router-dom';
 
 
 const MyContainer = styled.div`
@@ -19,8 +20,9 @@ background-size: cover;
 
 
 export const SearchResults = () => {
-    const reduxState = useSelector(state => state.searchResults)
 
+    const reduxState = useSelector(state => state.searchResults)
+    const reduxState2 = useSelector(state => state.videogames)
     const [currentPage, setCurrentPage] = useState(1);
     const [gamesPerPage] = useState(15);
 
@@ -30,23 +32,30 @@ export const SearchResults = () => {
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+    console.log(reduxState)
 
-    return (
-        <MyContainer>
-            {
-                reduxState && currentGames.map(e => <Card
-                    key={e.id}
-                    id={e.id}
-                    name={e.name}
-                    platforms={e.platforms}
-                    rating={e.rating}
-                    genres={e.genres}
-                    image={e.image}
-                />)
-            }
-            <div>
-                <Pagination gamesPerPage={gamesPerPage} totalGames={reduxState.length} paginate={paginate} />
-            </div>
-        </MyContainer>
+    if (!reduxState2[0]) return (
+        <>
+            <Redirect to={'/'} />
+        </>
     )
+    else
+        return (
+            <MyContainer>
+                {
+                    reduxState && currentGames.map(e => <Card
+                        key={e.id}
+                        id={e.id}
+                        name={e.name}
+                        platforms={e.platforms}
+                        rating={e.rating}
+                        genres={e.genres}
+                        image={e.image}
+                    />)
+                }
+                <div>
+                    <Pagination gamesPerPage={gamesPerPage} totalGames={reduxState.length} paginate={paginate} currentPage={currentPage}/>
+                </div>
+            </MyContainer>
+        )
 }

@@ -1,13 +1,16 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
-// import { Redirect } from 'react-router-dom';
+import { Loading } from './Loading';
 
 const Card = styled.div`
   margin-top: -21px;
+  margin-bottom: -22px;
   background-color: #333;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   max-width: 100%;
+  height: fit-content;
   text-align: center;
   font-family: arial;
 `;
@@ -17,38 +20,39 @@ const MyP = styled.p`
   font-size: 22px;
 `;
 
-const MyTextArea = styled.textarea`
-resize: none;
-height: 40%;
-width: 60%;
-margin-bottom: 10px;
-/* width: 100%; */
-  /* height: 150px; */
-  padding: 12px 20px;
-  box-sizing: border-box;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  background-color: #f8f8f8;
-  resize: none;
-`;
-
 const imgStyle = {
   width: '60%'
 }
 
 export const Details = () => {
+  const detail = useSelector(state => state.videogameDetails);
+  const redirect = useSelector(state => state.videogames);
 
-  const detail = useSelector(state => state.videogameDetails)
+  console.log(detail)
 
+  if (!redirect[0]) {
     return (
-      <Card>
-        <h1>{detail.name}</h1>
-        <img src={detail.image} alt="Loading..." style={imgStyle} />
-        <MyP>{detail.platforms}</MyP>
-        <MyP>{detail.genres}</MyP>
-        <MyP>Rate:{detail.rating}</MyP>
-        <MyP>Description:</MyP>
-        <MyTextArea name="" id="" cols="30" rows="10">{detail.description}</MyTextArea>
-      </Card>
-    )
+      <>
+        <Redirect to={'/'} />
+      </>
+    );
+  }
+  else
+    return (
+      <>
+
+        {detail.name ?
+          <Card>
+            <h1>{detail.name}</h1>
+            <img src={detail.image} alt="Loading..." style={imgStyle} />
+            <MyP>{detail.platforms}</MyP>
+            <MyP>{detail.genres.map(e => e.name)}</MyP>
+            <MyP>Rate:{detail.rating}</MyP>
+            <MyP>Released:{detail.released}</MyP>
+            <MyP>Description:</MyP>
+            <MyP>{detail.description}</MyP>
+          </Card> : <Loading />
+        }
+      </>
+    );
 };

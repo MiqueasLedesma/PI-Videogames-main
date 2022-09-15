@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getVideogamesByName } from '../Redux/actions';
-//Estilos CSS
-//------------------------------------------------------------------------------------------------------------------------------------
 
 let RightLI = {
   float: 'right'
@@ -37,7 +35,6 @@ const MyLink = styled(NavLink)`
   padding: 14px 16px;
   text-decoration: none;
   background-color: black;
-
 transition: 0.4s;
 &:hover {
   background-color: #04AA6D;
@@ -61,10 +58,6 @@ const MyInput = styled.input`
   width: 180px;
 `;
 
-// Componente || logica
-//-------------------------------------------------------------------------------------------------------------------------------------------
-
-
 export const Navbar = () => {
 
   const dispatch = useDispatch();
@@ -73,7 +66,6 @@ export const Navbar = () => {
   const handleChange = (e) => {
     e.preventDefault();
     setName(e.target.value);
-
   };
 
   const handleClick = (e) => {
@@ -89,10 +81,10 @@ export const Navbar = () => {
         <MyLi><MyLink to={'/videogames'}>Videogames!</MyLink></MyLi>
         <MyLi><MyLink to={'/genres'}>Genres</MyLink></MyLi>
         <MyLi><MyLink to={'/creategame'}>CreateGame</MyLink></MyLi>
-        <MyLi style={RightLI}><MyInput type="text" placeholder="Search.." onChange={(e) => handleChange(e)} /></MyLi>
+        <MyLi style={RightLI}><MyInput value={name} type="text" placeholder="Search.." onChange={(e) => handleChange(e)} /></MyLi>
         <MyLi style={RightLI} onClick={(e) => handleClick(e)}><MyLink to={'/searchvideogame'}>Search</MyLink></MyLi>
       </MyUl>
     </MyDiv>
-  )
-}
+  );
+};
 

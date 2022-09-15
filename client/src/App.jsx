@@ -5,10 +5,8 @@ import { Loading } from './components/Loading';
 import { Route } from 'react-router-dom';
 import { Home } from './components/Home';
 import { Genres } from './components/Genres';
-// import store from './Redux/store';
 import { getGenres, getVideogames } from './Redux/actions';
 import { useEffect } from 'react';
-// import { Pagination } from './components/Pagination';
 import styled from 'styled-components';
 import img from './imagenes/7445.webp'
 import { Details } from './components/Details';
@@ -65,6 +63,7 @@ function App() {
       <Route exact path={'/creategame'} >
         <Navbar />
         <ControlledForm />
+        {/* {reduxState.videogames[0] ? <ControlledForm /> : <Loading />} */}
       </Route>
       <Route exact path={'/searchvideogame'}>
         <Navbar />
