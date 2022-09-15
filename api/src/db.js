@@ -39,8 +39,6 @@ const { Videogame, Genres } = sequelize.models;
 Videogame.belongsToMany(Genres, { through: 'videogameGenre' });
 Genres.belongsToMany(Videogame, { through: 'videogameGenre' });
 
-// let YOUR_API_KEY = '2e4976c2679c4f378ccf9af9c490a4b3'
-
 let urlBase = `https://api.rawg.io/api/genres?key=${YOUR_API_KEY}`;
 
 const injectInfo = async () => {

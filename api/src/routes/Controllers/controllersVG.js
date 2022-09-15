@@ -22,12 +22,13 @@ const getVideogames = async () => {
             genres: e.genres.map(ch => ch.name)
         };
     });
+
     return responseVG.slice(0, 100);
 };
 
 const getVideogameQuery = async (name) => {
 
-    let responseVG;
+    let responseVG = [];
     await axios.get(`https://api.rawg.io/api/games?search=${name.split(' ').join('-')}&key=${YOUR_API_KEY}`)
         .then(r => {
             responseVG = r.data.results.map(e => {
@@ -35,7 +36,7 @@ const getVideogameQuery = async (name) => {
                     id: e.id,
                     name: e.name,
                     image: e.background_image,
-                    release: e.released,
+                    released: e.released,
                     rating: e.rating,
                     platforms: e.platforms.map(ch => ch),
                     genres: e.genres.map(ch => ch.name)
@@ -47,53 +48,12 @@ const getVideogameQuery = async (name) => {
         where: {
             name: { [Op.iLike]: '%' + name + '%' }
         }, include: Genres
-        /* raw: true */
     });
-    console.log(gamesDB)
-    let responseDB = gamesDB.map(el => {
-        return {
-            id: el.id,
-            name: el.name,
-            description: el.description,
-            image: el.image,
-            release: el.release,
-            rating: el.rating,
-            platforms: el.platforms,
-            genres: el.genres
-            /* createdInDB: el.createdInDB */
-        }
-    })
-    return responseVG.concat(responseDB);
+
+    return gamesDB.concat(responseVG);
 };
 
-// const getVideogameFromDB = async (name) => {
-//     let dbGames = Videogame.findAll({
-//         where: {
-//             name: { [Op.iLike]: '%' + name + '%' }
-//         }, include: Genre
-//     });
-//     console.log(name + ' Traido desde DB');
-//     return dbGames.slice(0, 15);
-// };
 
-// const getGameByID = async (id) => {
-//     await axios.get(`https://api.rawg.io/api/games/${id}?key=${YOUR_API_KEY}`)
-//         .then(r => {
-//             console.log(id);
-//             let info;
-//             info = r.data
-//             let response = {
-//                 name: info.name,
-//                 image: info.background_image,
-//                 description: info.description,
-//                 release: info.released,
-//                 rating: info.rating,
-//                 platforms: info.platforms.map(ch => ch.platform.name),
-//                 genres: info.genres.map(ch => ch.name)
-//             };
-//             console.log(response);
-//             return response;
-//         });
-// };
 
-module.exports = { getVideogames, getVideogameQuery /* getGameByID */ };
+
+module.exports = { getVideogames, getVideogameQuery };
