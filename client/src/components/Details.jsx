@@ -46,7 +46,7 @@ export const Details = () => {
             <h1>{detail.name}</h1>
             <img src={detail.image} alt="Loading..." style={imgStyle} />
             <MyP>{detail.platforms}</MyP>
-            <MyP>{detail.genres.map(e => e.name)}</MyP>
+            <MyP>{Array.isArray(detail.genres) ? detail.genres.map(e => e.name) : detail.genres}</MyP>
             <MyP>Rate:{detail.rating}</MyP>
             <MyP>Released:{detail.released}</MyP>
             <MyP>Description:</MyP>
