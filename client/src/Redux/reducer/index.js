@@ -1,4 +1,4 @@
-import { GENRE_FILTER, GET_GENRES, GET_VIDEOGAMES, GET_VIDEOGAMES_BY_NAME, GET_VIDEOGAME_BY_ID, /* SHOW_SEARCH_RESULTS, */ SORT_LOW_MAX, SORT_MAX_LOW, SORT_MAX_LOW_A, SORT_MAX_LOW_B } from '../actions/index'
+import { GENRE_FILTER, GET_GENRES, GET_VIDEOGAMES, GET_VIDEOGAMESDB, GET_VIDEOGAMES_BY_NAME, GET_VIDEOGAME_BY_ID, /* SHOW_SEARCH_RESULTS, */ SORT_LOW_MAX, SORT_MAX_LOW, SORT_MAX_LOW_A, SORT_MAX_LOW_B } from '../actions/index'
 
 const initialState = {
     videogames: [],
@@ -7,6 +7,7 @@ const initialState = {
     videogameFilter: [],
     genres: [],
     platforms: [],
+    gamesFromDB: [],
     sortBy: ''
 };
 
@@ -96,6 +97,13 @@ const rootReducer = (state = initialState, action) => {
                     ...state,
                     sortBy: action.payload,
                     videogames: state.videogames.sort((a, b) => b.rating - a.rating)
+                }
+            } break;
+        case GET_VIDEOGAMESDB:
+            if (action.payload) {
+                return {
+                    ...state,
+                    gamesFromDB: action.payload
                 }
             } break;
         default:

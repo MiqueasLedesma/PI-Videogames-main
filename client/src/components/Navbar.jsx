@@ -77,7 +77,6 @@ export const Navbar = () => {
   return (
     <MyDiv>
       <MyUl>
-        {/* <MyLi><MyLink to={'/'}>Home</MyLink></MyLi> */}
         <MyLi><MyLink to={'/videogames'}>Videogames!</MyLink></MyLi>
         <MyLi><MyLink to={'/genres'}>Genres</MyLink></MyLi>
         <MyLi><MyLink to={'/creategame'}>CreateGame</MyLink></MyLi>

@@ -40,6 +40,7 @@ background-color:#3a352f
 
 export const Card = ({ name, image, id }) => {
   const dispatch = useDispatch();
+  console.log(id)
   const handleClick = (id) => {
     dispatch(getVideogameByID(id))
   }

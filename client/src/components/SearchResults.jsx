@@ -45,9 +45,6 @@ export const SearchResults = () => {
                         key={e.id}
                         id={e.id}
                         name={e.name}
-                        platforms={e.platforms}
-                        rating={e.rating}
-                        genres={e.genres}
                         image={e.image}
                     />)
                 }

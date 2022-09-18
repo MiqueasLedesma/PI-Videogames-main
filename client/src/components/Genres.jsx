@@ -14,6 +14,12 @@ width: fit-content;
 display: inline;
 grid-template-columns: max-content;
 justify-content: center;
+@media (max-width: 768px) {
+  grid-template-columns: auto auto auto auto;
+  @media (max-width: 500px) {
+    grid-template-columns: auto;
+  }
+}
 `;
 
 const MyContainer = styled.div`

@@ -14,6 +14,12 @@ grid-template-columns: auto auto auto auto auto auto;
 justify-content: center;
 background-image: url(${img});
 background-size: cover;
+@media (max-width: 768px) {
+  grid-template-columns: auto auto auto auto;
+  @media(max-width: 500px){
+  grid-template-columns: auto;
+}
+}
 `;
 
 const MyDiv = styled.div`
@@ -25,7 +31,7 @@ const MyDiv = styled.div`
 `;
 
 const MyButton = styled.button`
-  background-color: #4CAF50; /* Green */
+  background-color: #4CAF50;
   border: none;
   color: white;
   padding: 10px 10px;

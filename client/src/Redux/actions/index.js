@@ -4,6 +4,7 @@ export const GET_VIDEOGAMES = 'GET_VIDEOGAMES';
 export const GET_VIDEOGAMES_BY_NAME = 'GET_VIDEOGAMES_BY_NAME';
 export const SHOW_SEARCH_RESULTS = 'SHOW_SEARCH_RESULTS';
 export const GET_VIDEOGAME_BY_ID = 'GET_VIDEOGAME_BY_ID';
+export const GET_VIDEOGAMESDB = 'GET_VIDEOGAMESDB';
 export const GET_GENRES = 'GET_GENRES';
 export const SORT_LOW_MAX = 'SORT_LOW_MAX';
 export const SORT_MAX_LOW = 'SORT_MAX_LOW';
@@ -90,3 +91,11 @@ export const createGame = (input) => async () => {
         .then(r => alert('VIDEOGAME CREATED!'))
         .catch(e => console.log(e));
 };
+
+export const getDBgames = () => async (dispatch) => {
+    return await axios.get(`http://localhost:3001/dbgames`)
+        .then(r => dispatch({
+            type: GET_VIDEOGAMESDB,
+            payload: r.data
+        }));
+}

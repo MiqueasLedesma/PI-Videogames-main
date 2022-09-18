@@ -5,7 +5,7 @@ import { Loading } from './components/Loading';
 import { Route } from 'react-router-dom';
 import { Home } from './components/Home';
 import { Genres } from './components/Genres';
-import { getGenres, getVideogames } from './Redux/actions';
+import { getDBgames, getGenres, getVideogames } from './Redux/actions';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 import img from './imagenes/7445.webp'
@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux';
 import { ControlledForm } from './components/ControlledForm';
 import { useDispatch } from 'react-redux';
 import { SearchResults } from './components/SearchResults';
+import { DBgames } from './components/DBgames';
 
 
 const MyDiv = styled.div`
@@ -34,6 +35,7 @@ function App() {
 
   if (reduxState.videogames[0] === undefined) dispatch(getVideogames());
   if (reduxState.genres[0] === undefined) dispatch(getGenres());
+  if (reduxState.gamesFromDB[0] === undefined) dispatch(getDBgames());
 
   const genres = reduxState.genres;
 
@@ -46,7 +48,7 @@ function App() {
   return (
     <MyDiv>
       <Route exact path={'/'}>
-    <Home />
+        <Home />
       </Route>
       <Route path="/videogames">
         <Navbar />
@@ -62,7 +64,6 @@ function App() {
       </Route>
       <Route exact path={'/creategame'} >
         <Navbar />
-        {/* <ControlledForm /> */}
         {reduxState.videogames[0] ? <ControlledForm /> : <Loading />}
       </Route>
       <Route exact path={'/searchvideogame'}>
